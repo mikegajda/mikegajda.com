@@ -6,6 +6,18 @@ layout: 'Post'
 category: Traveling
 ---
 
+<interactive-counter>
+	![alt text](./IMG_2531.jpg "Logo Title Text 1")
+	![alt text](./IMG_2531.jpg "Logo Title Text 1")
+</interactive-counter>
+
+<!-- [[gallery]]
+| [[galleryWrapper]]
+| | [[galleryItem]]
+| | | ![alt text](./IMG_2531.jpg "Logo Title Text 1")
+| | [[galleryItem]]
+| | | ![alt text](./IMG_2531.jpg "Logo Title Text 1") -->
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec dolor id sapien auctor eleifend. Sed tincidunt, nibh vel pulvinar scelerisque, tellus ex ullamcorper turpis, sit amet fermentum nibh odio ac risus. Suspendisse tristique tincidunt ipsum, id porta augue condimentum id. Curabitur tempus, risus vitae volutpat mollis, quam ipsum congue ligula, non faucibus odio nunc et turpis. Pellentesque lorem nisl, condimentum tempus bibendum convallis, fermentum in est. Donec quis mi pulvinar, vestibulum orci pharetra, fermentum ipsum. Suspendisse posuere ullamcorper enim, et convallis ligula rutrum non. Donec ut nunc lacinia, faucibus ante ac, sodales diam. Etiam sagittis mauris libero, in lobortis nulla congue vitae. Maecenas eu magna varius, auctor quam nec, vehicula felis. Proin sodales efficitur cursus. Ut accumsan efficitur massa, ut hendrerit augue fermentum sit amet. Curabitur suscipit nisl vel lorem vehicula sollicitudin. Praesent dictum tincidunt neque quis sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut ac purus urna.
 
 Nulla vitae nunc arcu. Suspendisse pellentesque augue orci, sit amet sodales tortor viverra eu. Proin venenatis ac felis eu dapibus. Aliquam erat volutpat. Etiam laoreet nulla a sapien consequat, vel placerat est luctus. Curabitur nec elementum tortor, vitae rutrum quam. Mauris ipsum purus, laoreet non neque id, pulvinar vulputate quam. Maecenas gravida pharetra urna, quis fermentum ligula rhoncus non. Vivamus interdum ex id dolor congue, id accumsan elit hendrerit. Curabitur venenatis nisl non ante mattis mollis. Vivamus et imperdiet metus. Duis maximus tempus arcu vitae gravida.

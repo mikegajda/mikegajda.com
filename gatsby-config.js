@@ -41,9 +41,20 @@ module.exports = {
               wrapperStyle: 'margin-bottom: 1.0725rem',
             },
           },
+          {
+            resolve: 'gatsby-remark-custom-blocks',
+            options: {
+              blocks: {
+                gallery: 'swiper-container',
+                galleryWrapper: 'swiper-wrapper',
+                galleryItem: 'swiper-slide',
+              },
+            },
+          },
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
+          `gatsby-remark-katex`,
         ],
       },
     },

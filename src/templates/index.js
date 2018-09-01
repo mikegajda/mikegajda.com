@@ -7,6 +7,7 @@ import { LinkPost } from 'templates/LinkPost'
 import { Image } from 'templates/Image'
 import Meta from 'components/Meta'
 import Layout from 'components/Layout'
+import 'katex/dist/katex.min.css'
 
 const NavLink = props => {
   if (props.next) {
@@ -52,10 +53,10 @@ const BlogIndex = ({ data, pathContext }) => {
           switch (post.node.remark.frontmatter.layout) {
             case 'Post':
               return Post(post.node)
-            case 'LinkPost':
-              return LinkPost(post.node)
-            case 'Image':
-              return Image(post.node)
+            // case 'LinkPost':
+            //   return LinkPost(post.node)
+            // case 'Image':
+            //   return Image(post.node)
             default:
               return Post(post.node)
           }

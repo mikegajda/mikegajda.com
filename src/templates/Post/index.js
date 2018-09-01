@@ -9,9 +9,18 @@ import Footer from 'components/Footer'
 import Layout from 'components/Layout'
 import './style.scss'
 
+import rehypeReact from 'rehype-react'
+import Counter from '../../../gallery.js'
+
+const renderAst = new rehypeReact({
+  createElement: React.createElement,
+  components: { 'interactive-counter': Counter },
+}).Compiler
+
 export const Post = node => {
   console.log('Post received this node=', node)
   const html = node.remark.html
+  const htmlAst = node.remark.htmlAst
   const {
     category,
     tags,
@@ -46,7 +55,7 @@ export const Post = node => {
             {title}
           </Link>
         </h1>
-        <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
+        {renderAst(htmlAst)}
       </div>
     </article>
   )
@@ -145,7 +154,7 @@ export const pageQuery = graphql`
           changeTime(formatString: "YYYY-MM-DD hh:mm:ss")
           remark: childMarkdownRemark {
             id
-            html
+            htmlAst
             frontmatter {
               layout
               title

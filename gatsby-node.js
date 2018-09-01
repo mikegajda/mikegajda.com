@@ -5,6 +5,14 @@ const Post = path.resolve('./src/templates/Post/index.js')
 const LinkPost = path.resolve('./src/templates/LinkPost/index.js')
 const Image = path.resolve('./src/templates/Image/index.js')
 const createPaginatedPages = require('gatsby-paginate')
+const rehypeReact = require('rehype-react')
+const Counter = path.resolve('./src/templates/Counter/index.js')
+const React = require('react')
+
+const renderAst = new rehypeReact({
+  createElement: React.createElement,
+  components: { 'interactive-counter': Counter },
+}).Compiler
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -31,6 +39,7 @@ exports.createPages = ({ graphql, actions }) => {
                   remark: childMarkdownRemark {
                     id
                     html
+                    htmlAst
                     frontmatter {
                       layout
                       title
