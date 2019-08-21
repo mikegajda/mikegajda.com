@@ -53,7 +53,7 @@
     "eslint": "5.16.0",
     "eslint-config-prettier": "6.1.0",
     "eslint-plugin-prettier": "2.7.0",
-    "eslint-plugin-react": "7.10.0",
+    "eslint-plugin-react": "7.14.3",
     "font-awesome": "4.7.0",
     "gh-pages": "2.1.1",
     "husky": "0.14.3",
