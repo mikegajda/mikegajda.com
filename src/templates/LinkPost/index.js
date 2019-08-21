@@ -19,16 +19,16 @@ const metascraper = require('metascraper')([
   require('metascraper-author')(),
 ])
 
-function getMetaData(url) {
-  ;(async () => {
-    const { body: html, url } = await fetch(url)
-    const metadata = await metascraper({
-      html,
-      url,
-    })
-    return metadata
-  })()
-}
+// function getMetaData(url) {
+//   ;(async () => {
+//     const { body: html, url } = await fetch(url)
+//     const metadata = await metascraper({
+//       html,
+//       url,
+//     })
+//     return metadata
+//   })()
+// }
 
 export const LinkPost = node => {
   console.log('LinkPost received this node=', node)
@@ -51,10 +51,10 @@ export const LinkPost = node => {
     .replace(/^www\./, '')
     .split(/[/?#]/)[0]
 
-  let metadata = (async () => {
-    return getMetaData(link).then(metadata => metadata)
-  })()
-  console.log('metadata', metadata)
+  // let metadata = (async () => {
+  //   return getMetaData(link).then(metadata => metadata)
+  // })()
+  // console.log('metadata', metadata)
 
   return (
     <article className="card my-4 container p-0" key={node.absolutePath}>

@@ -117,91 +117,38 @@ module.exports = {
                 b = new Date(b.node.remark.frontmatter.publishDate)
                 return a > b ? -1 : a < b ? 1 : 0
               })
-              return allFile.edges.map(edge => {
-                let node = edge.node
-                let content = ''
-                switch (node.remark.frontmatter.layout) {
-                  case 'Post':
-                    return Object.assign({}, node.frontmatter, {
-                      title: node.remark.frontmatter.title,
-                      description: node.remark.html,
-                      url: site.siteMetadata.siteUrl + `/posts/${node.name}`,
-                      guid: site.siteMetadata.siteUrl + node.id,
-                      custom_elements: [
-                        { 'content:encoded': node.remark.html },
-                      ],
-                      date: node.remark.frontmatter.publishDate,
-                      ttl: 1,
-                    })
-                  // case 'LinkPost':
-                  //   return LinkPost(post.node)
-                  // case 'Image':
-                  //   return Image(post.node)
-                  // case 'Gallery':
-                  //   return Gallery(post.node)
-                  case 'OGLink':
-                    if (node.remark.og && node.remark.og.imageUrl) {
-                      content += `<img src=${node.remark.og.imageUrl}>`
-                    }
-                    if (node.remark.og && node.remark.og.description) {
-                      content += `<blockquote><p>${
-                        node.remark.og.description
-                      }</p></blockquote>`
-                    }
-                    content += node.remark.html
-                    return Object.assign({}, node.frontmatter, {
-                      title:
-                        node.remark.og && node.remark.og.title
-                          ? node.remark.og.title
-                          : node.remark.frontmatter.title,
-                      description: content,
-                      url:
-                        node.remark.og && node.remark.og.url
-                          ? node.remark.og.url
-                          : site.siteMetadata.siteUrl + `/posts/${node.name}`,
-                      guid: site.siteMetadata.siteUrl + node.id,
-                      custom_elements: [{ 'content:encoded': content }],
-                      date: node.remark.frontmatter.publishDate,
-                      ttl: 1,
-                    })
-                  case 'Youtube':
-                    if (node.remark.link) {
-                      let youtubeKey = node.remark.link.split('?q')[1]
-                      content += `<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/${youtubeKey}" allowfullscreen />`
-                    }
-                    content += node.remark.html
-                    return Object.assign({}, node.frontmatter, {
-                      title:
-                        node.remark.og && node.remark.og.title
-                          ? node.remark.og.title
-                          : node.remark.frontmatter.title,
-                      description: content,
-                      url:
-                        node.remark.og && node.remark.og.url
-                          ? node.remark.og.url
-                          : site.siteMetadata.siteUrl + `/posts/${node.name}`,
-                      guid: site.siteMetadata.siteUrl + node.id,
-                      custom_elements: [{ 'content:encoded': content }],
-                      date: node.remark.frontmatter.publishDate,
-                      ttl: 1,
-                    })
-                  default:
-                    return Object.assign({}, node.frontmatter, {
-                      title:
-                        node.remark.og && node.remark.og.title
-                          ? node.remark.og.title
-                          : node.remark.frontmatter.title,
-                      description: node.remark.html,
-                      url: site.siteMetadata.siteUrl + `/posts/${node.name}`,
-                      guid: site.siteMetadata.siteUrl + node.id,
-                      custom_elements: [
-                        { 'content:encoded': node.remark.html },
-                      ],
-                      date: node.remark.frontmatter.publishDate,
-                      ttl: 1,
-                    })
-                }
-              })
+              return allFile.edges
+                .filter(
+                  edge => edge.node.remark.frontmatter.layout === 'LinkPost'
+                )
+                .map(edge => {
+                  let node = edge.node
+                  let content = ''
+                  switch (node.remark.frontmatter.layout) {
+                    case 'LinkPost':
+                      if (
+                        node.remark.frontmatter.excerpt &&
+                        node.remark.frontmatter.excerpt !== ''
+                      ) {
+                        content += `<blockquote><small>Excerpt</small><div>${
+                          node.remark.frontmatter.excerpt
+                        }</div></blockquote>`
+                      }
+                      content += node.remark.html
+                      return Object.assign({}, node.frontmatter, {
+                        title: node.remark.frontmatter.title,
+                        description: content,
+                        url: node.remark.frontmatter.link,
+                        guid: node.id,
+                        custom_elements: [{ 'content:encoded': content }],
+                        date: node.remark.frontmatter.publishDate,
+                        ttl: 1,
+                      })
+
+                    default:
+                      return {}
+                  }
+                })
             },
             query: `
           {
