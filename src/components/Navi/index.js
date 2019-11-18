@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 
 function getTitleFromHostname(defaultTitle) {
-  if (window) {
+  try {
     switch (window.location.hostname) {
       case 'mikegajda':
         return 'Mike Gajda'
@@ -13,12 +13,22 @@ function getTitleFromHostname(defaultTitle) {
       default:
         return defaultTitle
     }
-  } else {
+  } catch {
     return defaultTitle
   }
 }
 
 class Navi extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { title: this.props.title }
+  }
+
+  componentDidMount() {
+    this.setState({
+      title: getTitleFromHostname(this.props.title),
+    })
+  }
   render() {
     const { location, title } = this.props
 
@@ -26,7 +36,7 @@ class Navi extends React.Component {
       <nav className="navbar navbar-expand-md navbar-dark bg-primary">
         <div className="container px-0">
           <Link className="text-center" to="/">
-            <h1 className="navbar-brand mb-0">{getTitleFromHostname(title)}</h1>
+            <h1 className="navbar-brand mb-0">{this.state.title}</h1>
           </Link>
           <button
             class="navbar-toggler border-0"
