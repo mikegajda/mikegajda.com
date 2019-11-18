@@ -38,7 +38,6 @@ const NavLink = props => {
 }
 
 const BlogIndex = ({ data, pathContext }) => {
-  console.log('DATA BLOG INDEX', data, pathContext)
   const posts = pathContext.group
 
   const { group, index, first, last, pageCount } = pathContext

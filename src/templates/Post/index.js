@@ -5,6 +5,7 @@ import map from 'lodash/map'
 import Img from 'gatsby-image'
 import Layout from 'components/Layout'
 import './style.scss'
+import Meta from 'components/Meta'
 
 export const Post = node => {
   const html = node.remark.html
@@ -17,28 +18,43 @@ export const Post = node => {
     date,
     image,
   } = node.remark.frontmatter
+
+  const excerpt = node.remark.excerpt
   const link = `/posts/${node.name}`
 
   const fluid = get(node, 'remark.frontmatter.image.childImageSharp.fluid')
 
+  console.log('excerpt = ', excerpt)
+  console.log('fluid = ', fluid)
   return (
-    <article className="container p-0 card my-4 shadow" key={node.absolutePath}>
-      <div className="card-header">
-        <span className="text-muted">{category}</span>
-        <time className="text-muted float-right" dateTime={date}>
-          {date}
-        </time>
-      </div>
-      {fluid ? <Img fluid={fluid} /> : ''}
-      <div className="card-body">
-        <h1 className="">
-          <Link className="" to={link}>
-            {title}
-          </Link>
-        </h1>
-        <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
-      </div>
-    </article>
+    <React.Fragment>
+      <Meta
+        title={title}
+        description={excerpt}
+        url={link}
+        image={fluid ? fluid.src : null}
+      />
+      <article
+        className="container p-0 card my-4 shadow"
+        key={node.absolutePath}
+      >
+        <div className="card-header">
+          <span className="text-muted">{category}</span>
+          <time className="text-muted float-right" dateTime={date}>
+            {date}
+          </time>
+        </div>
+        {fluid ? <Img fluid={fluid} /> : ''}
+        <div className="card-body">
+          <h1 className="">
+            <Link className="" to={link}>
+              {title}
+            </Link>
+          </h1>
+          <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
+        </div>
+      </article>
+    </React.Fragment>
   )
 }
 
@@ -134,6 +150,7 @@ export const pageQuery = graphql`
           remark: childMarkdownRemark {
             id
             html
+            excerpt
             frontmatter {
               layout
               title

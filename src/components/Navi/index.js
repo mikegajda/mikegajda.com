@@ -1,27 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { Helmet } from 'react-helmet'
-
-function getTitleFromHostname(defaultTitle) {
-  try {
-    switch (window.location.hostname) {
-      case 'mikegajda.com':
-        return 'Mike Gajda'
-      case 'www.mikegajda.com':
-        return 'Mike Gajda'
-      case 'michaelgajda.com':
-        return 'Michael Gajda'
-      case 'www.michaelgajda.com':
-        return 'Michael Gajda'
-      case 'localhost':
-        return 'Mike Gajda LOCAL'
-      default:
-        return defaultTitle
-    }
-  } catch {
-    return defaultTitle
-  }
-}
+import Meta from 'components/Meta'
 
 class Navi extends React.Component {
   constructor(props) {
@@ -29,20 +9,12 @@ class Navi extends React.Component {
     this.state = { title: this.props.title }
   }
 
-  componentDidMount() {
-    this.setState({
-      title: getTitleFromHostname(this.props.title),
-    })
-  }
-
   render() {
     const { location, title } = this.props
 
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary">
-        <Helmet>
-          <title>{this.state.title}</title>
-        </Helmet>
+        <Meta />
         <div className="container px-0">
           <Link className="text-center" to="/">
             <h1 className="navbar-brand mb-0">{this.state.title}</h1>
