@@ -24,8 +24,6 @@ export const Post = node => {
 
   const fluid = get(node, 'remark.frontmatter.image.childImageSharp.fluid')
 
-  console.log('excerpt = ', excerpt)
-  console.log('fluid = ', fluid)
   return (
     <React.Fragment>
       <Meta

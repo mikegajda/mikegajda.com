@@ -29,27 +29,32 @@ export const Youtube = node => {
 
   if (youtubeKey) {
     return (
-      <article
-        className="container container-wide p-0 card my-4 shadow rounded"
-        key={node.absolutePath}
-      >
-        <div className="embed-responsive embed-responsive-16by9 card-img-top rounded">
-          <iframe
-            className="embed-responsive-item"
-            src={`https://www.youtube.com/embed/${youtubeKey}`}
-            allowFullScreen
-          />
-        </div>
-
-        {html ? (
-          <div className="card-body">
-            <div dangerouslySetInnerHTML={{ __html: html }} />
+      <React.Fragment>
+        <Meta title={title} url={link} />
+        <article
+          className="container container-wide p-0 card my-4 shadow rounded"
+          key={node.absolutePath}
+        >
+          <div className="embed-responsive embed-responsive-16by9 card-img-top rounded">
+            <iframe
+              className="embed-responsive-item"
+              src={`https://www.youtube.com/embed/${youtubeKey}`}
+              allowFullScreen
+            />
           </div>
-        ) : (
-          ''
-        )}
-      </article>
+
+          {html ? (
+            <div className="card-body">
+              <div dangerouslySetInnerHTML={{ __html: html }} />
+            </div>
+          ) : (
+            ''
+          )}
+        </article>
+      </React.Fragment>
     )
+  } else {
+    return ''
   }
 }
 
