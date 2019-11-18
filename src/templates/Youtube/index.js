@@ -1,11 +1,7 @@
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import React from 'react'
-import map from 'lodash/map'
-import Img from 'gatsby-image'
 import Meta from '../../components/Meta/index'
-
-import Footer from 'components/Footer'
 import Layout from 'components/Layout'
 import './style.scss'
 
@@ -24,68 +20,34 @@ export const Youtube = node => {
     image,
     link,
   } = node.remark.frontmatter
-  const { og } = node.remark
-  const url = `${node.sourceInstanceName}/${node.relativeDirectory}/${
-    node.name
-  }`
+  const url = `${node.sourceInstanceName}/${node.relativeDirectory}/${node.name}`
 
   let prettyLink = link.replace(/(^\w+:|^)\/\//, '').replace(/^www\./, '')
 
   let youtubeKey = new URL(link, true).query.v
   console.log('youtubeKey = ', youtubeKey)
 
-  if (og && youtubeKey) {
+  if (youtubeKey) {
     return (
       <article
         className="container container-wide p-0 card my-4 shadow rounded"
         key={node.absolutePath}
       >
-        <div class="embed-responsive embed-responsive-16by9 card-img-top">
+        <div className="embed-responsive embed-responsive-16by9 card-img-top rounded">
           <iframe
-            class="embed-responsive-item"
+            className="embed-responsive-item"
             src={`https://www.youtube.com/embed/${youtubeKey}`}
-            allowfullscreen
+            allowFullScreen
           />
         </div>
-        <div className="card-header">
-          <a href={og.url} className="text-muted">
-            <small>
-              <i class="fa fa-external-link mr-1" aria-hidden="true" />
-            </small>
-            {og.url}
-          </a>
-        </div>
-        <div className="card-body">
-          {og.description ? (
-            <blockquote className="p-3 rounded-right">
-              {og.description}
-            </blockquote>
-          ) : (
-            ''
-          )}
-          {html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : ''}
-        </div>
-      </article>
-    )
-  } else {
-    return (
-      <article className="card my-4 rounded" key={node.absolutePath}>
-        <div className="card-header">
-          <a href={link} className="text-muted">
-            <small>
-              <i class="fa fa-external-link mr-1" aria-hidden="true" />
-            </small>
-            {prettyLink}
-          </a>
-        </div>
-        <div className="card-body">
-          <h1 className="">
-            <Link className="" to={url}>
-              {title}
-            </Link>
-          </h1>
-          <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
-        </div>
+
+        {html ? (
+          <div className="card-body">
+            <div dangerouslySetInnerHTML={{ __html: html }} />
+          </div>
+        ) : (
+          ''
+        )}
       </article>
     )
   }
@@ -110,9 +72,7 @@ const YoutubeContainer = ({ data, options }) => {
   let node = data.post.edges[0].node
   return (
     <Layout
-      location={`${data.post.edges[0].node.sourceInstanceName}/${
-        data.post.edges[0].node.relativeDirectory
-      }/${data.post.edges[0].node.name}`}
+      location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
       <Meta site={get(data, 'site.meta')} />
       <div className="container px-0">{Youtube(node)}</div>

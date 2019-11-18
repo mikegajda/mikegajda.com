@@ -1,11 +1,7 @@
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import React from 'react'
-import map from 'lodash/map'
-import Img from 'gatsby-image'
 import Meta from '../../components/Meta/index'
-
-import Footer from 'components/Footer'
 import Layout from 'components/Layout'
 import './style.scss'
 
@@ -118,9 +114,7 @@ const LinkPostContainer = ({ data, options }) => {
 
   return (
     <Layout
-      location={`${data.post.edges[0].node.sourceInstanceName}/${
-        data.post.edges[0].node.relativeDirectory
-      }/${data.post.edges[0].node.name}`}
+      location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
       <Meta site={get(data, 'site.meta')} />
       <div className="container px-0">{LinkPost(node)}</div>
