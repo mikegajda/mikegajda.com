@@ -8,6 +8,7 @@ import { Gallery } from 'templates/Gallery'
 import { OGLink } from 'templates/OGLink'
 import { Youtube } from 'templates/Youtube'
 import Layout from 'components/Layout'
+import Meta, { getHostName, getTitleFromHostname } from 'components/Meta'
 
 const NavLink = props => {
   if (props.next) {
@@ -36,11 +37,26 @@ const NavLink = props => {
     )
   }
 }
+export function getPathPrefixSentenceCase(pathPrefix) {
+  return pathPrefix.charAt(0).toUpperCase() + pathPrefix.substring(1)
+}
+export function getIndexPageTitleFromPathPrefixAndIndex(pathPrefix, index) {
+  if (pathPrefix && index) {
+    return `${getPathPrefixSentenceCase(pathPrefix)} | Page ${index}`
+  } else if (!pathPrefix && index) {
+    return `Page ${index}`
+  } else if (pathPrefix && !index) {
+    return `${getPathPrefixSentenceCase(pathPrefix)}`
+  } else {
+    return undefined
+  }
+}
 
 const BlogIndex = ({ data, pathContext }) => {
   const posts = pathContext.group
 
-  const { group, index, first, last, pageCount } = pathContext
+  console.log('pathContext = ', pathContext)
+  const { group, index, first, last, pageCount, pathPrefix } = pathContext
   const previousUrl =
     index - 1 == 1
       ? '' + pathContext.pathPrefix
@@ -49,7 +65,6 @@ const BlogIndex = ({ data, pathContext }) => {
 
   return (
     <Layout location={'/'}>
-      {/*<Meta site={get(data, 'site.meta')} />*/}
       <div className="px-0">
         {posts.map(function(post) {
           switch (post.node.remark.frontmatter.layout) {
@@ -70,6 +85,17 @@ const BlogIndex = ({ data, pathContext }) => {
           }
         })}
 
+        <Meta
+          title={`${getTitleFromHostname(
+            'Mike Gajda'
+          )} | ${getIndexPageTitleFromPathPrefixAndIndex(pathPrefix, index)}`}
+          description={
+            pathPrefix
+              ? `All ${pathPrefix} on ${getHostName()}`
+              : `A collection of articles, essays, links, photos and videos.`
+          }
+          url={`/${pathPrefix}`}
+        />
         <div className="container px-0 page-navigation clearfix">
           <NavLink
             next={false}
