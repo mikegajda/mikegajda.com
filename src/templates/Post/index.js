@@ -32,11 +32,7 @@ export const Post = node => {
           {date}
         </time>
       </div>
-      {fluid ? (
-        <Img fluid={fluid} style={{ display: 'block', margin: '0 auto' }} />
-      ) : (
-        ''
-      )}
+      {fluid ? <Img fluid={fluid} /> : ''}
       <div className="card-body">
         <h1 className="">
           <Link className="" to={link}>
@@ -69,9 +65,7 @@ const PostContainer = ({ data, options }) => {
 
   return (
     <Layout
-      location={`${data.post.edges[0].node.sourceInstanceName}/${
-        data.post.edges[0].node.relativeDirectory
-      }/${data.post.edges[0].node.name}`}
+      location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
       <Meta site={get(data, 'site.meta')} />
       <div className="container px-0">{Post(node)}</div>
