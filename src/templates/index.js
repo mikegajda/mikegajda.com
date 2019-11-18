@@ -8,7 +8,7 @@ import { Gallery } from 'templates/Gallery'
 import { OGLink } from 'templates/OGLink'
 import { Youtube } from 'templates/Youtube'
 import Layout from 'components/Layout'
-import Meta, { getHostName, getTitleFromHostname } from 'components/Meta'
+import Meta, { getHostName } from 'components/Meta'
 
 const NavLink = props => {
   if (props.next) {
@@ -86,9 +86,10 @@ const BlogIndex = ({ data, pathContext }) => {
         })}
 
         <Meta
-          title={`${getTitleFromHostname(
-            'Mike Gajda'
-          )} | ${getIndexPageTitleFromPathPrefixAndIndex(pathPrefix, index)}`}
+          title={`${getIndexPageTitleFromPathPrefixAndIndex(
+            pathPrefix,
+            index
+          )}`}
           description={
             pathPrefix
               ? `All ${pathPrefix} on ${getHostName()}`
