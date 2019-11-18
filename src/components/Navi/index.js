@@ -1,12 +1,17 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { Helmet } from 'react-helmet'
-import Meta from 'components/Meta'
+import Meta, { defaultTitlePrefix, getTitleFromHostname } from 'components/Meta'
 
 class Navi extends React.Component {
   constructor(props) {
     super(props)
     this.state = { title: this.props.title }
+  }
+
+  componentDidMount() {
+    this.setState({
+      title: getTitleFromHostname(defaultTitlePrefix),
+    })
   }
 
   render() {
