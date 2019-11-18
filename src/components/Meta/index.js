@@ -66,7 +66,7 @@ export default class Meta extends React.Component {
             content: `@mikendever`,
           },
           { property: 'og:title', content: `${ogTitle}` },
-          { property: 'og:type', content: 'website' },
+          { property: 'og:type', content: `${this.props.ogType}` },
           {
             property: 'og:description',
             content: `${this.props.description}`,
@@ -91,6 +91,7 @@ Meta.propTypes = {
   image: PropTypes.string,
   url: PropTypes.string,
   twitterSummaryType: PropTypes.string,
+  ogType: PropTypes.string,
 }
 
 Meta.defaultProps = {
@@ -98,4 +99,5 @@ Meta.defaultProps = {
   url: '/',
   image: '/img/android-chrome-512x512.png',
   twitterSummaryType: 'summary',
+  ogType: 'website',
 }
