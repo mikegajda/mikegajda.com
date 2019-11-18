@@ -2,15 +2,19 @@ import React from 'react'
 import { Link } from 'gatsby'
 
 function getTitleFromHostname(defaultTitle) {
-  switch (window.location.hostname) {
-    case 'mikegajda':
-      return 'Mike Gajda'
-    case 'michaelgajda':
-      return 'Michael Gajda'
-    case 'localhost':
-      return 'Mike Gajda LOCAL'
-    default:
-      return defaultTitle
+  if (window) {
+    switch (window.location.hostname) {
+      case 'mikegajda':
+        return 'Mike Gajda'
+      case 'michaelgajda':
+        return 'Michael Gajda'
+      case 'localhost':
+        return 'Mike Gajda LOCAL'
+      default:
+        return defaultTitle
+    }
+  } else {
+    return defaultTitle
   }
 }
 
