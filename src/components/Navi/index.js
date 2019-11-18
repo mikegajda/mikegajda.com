@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import { Helmet } from 'react-helmet'
 
 function getTitleFromHostname(defaultTitle) {
   try {
@@ -33,11 +34,15 @@ class Navi extends React.Component {
       title: getTitleFromHostname(this.props.title),
     })
   }
+
   render() {
     const { location, title } = this.props
 
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary">
+        <Helmet>
+          <title>{this.state.title}</title>
+        </Helmet>
         <div className="container px-0">
           <Link className="text-center" to="/">
             <h1 className="navbar-brand mb-0">{this.state.title}</h1>

@@ -1,6 +1,5 @@
 import { graphql, Link } from 'gatsby'
 import React from 'react'
-import get from 'lodash/get'
 
 import { Post } from 'templates/Post'
 import { LinkPost } from 'templates/LinkPost'
@@ -8,7 +7,6 @@ import { Image } from 'templates/Image'
 import { Gallery } from 'templates/Gallery'
 import { OGLink } from 'templates/OGLink'
 import { Youtube } from 'templates/Youtube'
-import Meta from 'components/Meta'
 import Layout from 'components/Layout'
 
 const NavLink = props => {
@@ -52,7 +50,7 @@ const BlogIndex = ({ data, pathContext }) => {
 
   return (
     <Layout location={'/'}>
-      <Meta site={get(data, 'site.meta')} />
+      {/*<Meta site={get(data, 'site.meta')} />*/}
       <div className="px-0">
         {posts.map(function(post) {
           switch (post.node.remark.frontmatter.layout) {
