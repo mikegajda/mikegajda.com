@@ -32,7 +32,7 @@ export const Post = node => {
         title={title}
         description={excerpt}
         url={link}
-        image={fluid ? fluid.src : null}
+        image={fluid ? fluid.src : undefined}
         twitterSummaryType={fluid ? 'summary_large_image' : 'summary'}
       />
       <article
