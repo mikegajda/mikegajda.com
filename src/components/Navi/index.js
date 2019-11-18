@@ -1,14 +1,28 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
+function getTitleFromHostname(defaultTitle) {
+  switch (window.location.hostname) {
+    case 'mikegajda':
+      return 'Mike Gajda'
+    case 'michaelgajda':
+      return 'Michael Gajda'
+    case 'localhost':
+      return 'Mike Gajda LOCAL'
+    default:
+      return defaultTitle
+  }
+}
+
 class Navi extends React.Component {
   render() {
     const { location, title } = this.props
+
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary">
         <div className="container px-0">
           <Link className="text-center" to="/">
-            <h1 className="navbar-brand mb-0">{title}</h1>
+            <h1 className="navbar-brand mb-0">{getTitleFromHostname(title)}</h1>
           </Link>
           <button
             class="navbar-toggler border-0"
