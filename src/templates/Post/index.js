@@ -33,6 +33,7 @@ export const Post = node => {
         description={excerpt}
         url={link}
         image={fluid ? fluid.src : null}
+        twitterSummaryType={fluid ? 'summary_large_image' : 'summary'}
       />
       <article
         className="container p-0 card my-4 shadow"

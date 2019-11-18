@@ -56,9 +56,13 @@ export default class Meta extends React.Component {
       <Helmet
         title={title}
         meta={[
-          { name: 'twitter:card', content: 'summary' },
+          { name: 'twitter:card', content: `${this.props.twitterSummaryType}` },
           {
             name: 'twitter:site',
+            content: `@mikendever`,
+          },
+          {
+            name: 'twitter:creator',
             content: `@mikendever`,
           },
           { property: 'og:title', content: `${ogTitle}` },
@@ -86,10 +90,12 @@ Meta.propTypes = {
   description: PropTypes.string,
   image: PropTypes.string,
   url: PropTypes.string,
+  twitterSummaryType: PropTypes.string,
 }
 
 Meta.defaultProps = {
   description: 'No description available at this time.',
   url: '/',
   image: '/img/android-chrome-512x512.png',
+  twitterSummaryType: 'summary',
 }
