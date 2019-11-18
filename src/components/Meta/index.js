@@ -37,20 +37,23 @@ export default class Meta extends React.Component {
   }
 
   render() {
-    let title = ''
+    let title = this.state.titlePrefix
+    let ogTitle = this.state.titlePrefix
     if (this.props.title) {
-      title = ` | ${this.props.title}`
+      title = `${this.state.titlePrefix} | ${this.props.title}`
+      ogTitle = this.props.title
     }
+
     return (
       <Helmet
-        title={`${this.state.titlePrefix}${title}`}
+        title={title}
         meta={[
           { name: 'twitter:card', content: 'summary' },
           {
             name: 'twitter:site',
             content: `@mikendever`,
           },
-          { property: 'og:title', content: this.state.title },
+          { property: 'og:title', content: `${ogTitle}` },
           { property: 'og:type', content: 'website' },
           {
             property: 'og:description',
