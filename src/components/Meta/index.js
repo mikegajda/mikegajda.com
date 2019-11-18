@@ -23,6 +23,14 @@ export function getTitleFromHostname(defaultTitle) {
   }
 }
 
+export function getHostName() {
+  try {
+    return window.location.hostname
+  } catch {
+    return 'mikegajda.com'
+  }
+}
+
 export const defaultTitlePrefix = 'Mike Gajda'
 export default class Meta extends React.Component {
   constructor(props) {
@@ -61,11 +69,11 @@ export default class Meta extends React.Component {
           },
           {
             property: 'og:url',
-            content: `${this.props.url}`,
+            content: `https://${getHostName()}${this.props.url}`,
           },
           {
             property: 'og:image',
-            content: `${this.props.image}`,
+            content: `https://${getHostName()}${this.props.image}`,
           },
         ]}
       />
