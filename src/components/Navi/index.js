@@ -4,9 +4,13 @@ import { Link } from 'gatsby'
 function getTitleFromHostname(defaultTitle) {
   try {
     switch (window.location.hostname) {
-      case 'mikegajda':
+      case 'mikegajda.com':
         return 'Mike Gajda'
-      case 'michaelgajda':
+      case 'www.mikegajda.com':
+        return 'Mike Gajda'
+      case 'michaelgajda.com':
+        return 'Michael Gajda'
+      case 'www.michaelgajda.com':
         return 'Michael Gajda'
       case 'localhost':
         return 'Mike Gajda LOCAL'
