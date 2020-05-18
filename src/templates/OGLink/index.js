@@ -3,6 +3,7 @@ import get from 'lodash/get'
 import React, {useEffect, useState} from 'react'
 import map from 'lodash/map'
 import Img from 'gatsby-image'
+
 const svgToMiniDataURI = require('mini-svg-data-uri');
 
 import Meta from '../../components/Meta/index'
@@ -53,15 +54,20 @@ const OGPicture = props => {
     }}>
       <div aria-hidden="true" style={{
         width: "100%",
-        paddingBottom: `${(props.height/props.width)*100}%`
+        paddingBottom: `${(props.height / props.width) * 100}%`
       }}></div>
       <img
-        onLoad={() => {setImageIsLoaded(true)}}
-        className={imageIsLoaded ? "opacity-1 position-absolute" : "opacity-0 position-absolute"}
-        src={`http://cdn.mikegajda.com.s3-website-us-east-1.amazonaws.com/${props.id}.jpg`}
+        onLoad={() => {
+          setImageIsLoaded(true)
+        }}
+        className={imageIsLoaded ? "opacity-1 position-absolute"
+          : "opacity-0 position-absolute"}
+        src={`https://d13wavrzg1e7kd.cloudfront.net/${props.id}.jpg`}
       />
-      <SvgInline url={`http://cdn.mikegajda.com.s3-website-us-east-1.amazonaws.com/${props.id}_100w.svg`}
-                 className={imageIsLoaded ? "opacity-0 position-absolute" : "svg opacity-1 position-absolute"} />
+      <SvgInline
+        url={`https://d13wavrzg1e7kd.cloudfront.net/${props.id}_100w.svg`}
+        className={imageIsLoaded ? "opacity-0 position-absolute"
+          : "svg opacity-1 position-absolute"}/>
     </div>
 
   )
@@ -100,14 +106,14 @@ export const OGLink = (node, shouldShowPermalink) => {
         </a>
       </div>
       <div className="card-body">
-        {<OGPicture id={3026269102} width={1050} height={549} />}
+        {<OGPicture id={3026269102} width={1050} height={549}/>}
         {html ? <div dangerouslySetInnerHTML={{__html: html}}/> : ''}
       </div>
     </article>
   )
 }
 
-const OGLinkContainer = ({ data, options }) => {
+const OGLinkContainer = ({data, options}) => {
   let node = data.post.edges[0].node
   return (
     <Layout
