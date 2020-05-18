@@ -3,8 +3,19 @@ import 'scss/gatstrap.scss'
 import 'animate.css/animate.css'
 import 'prismjs/themes/prism-okaidia.css'
 import 'font-awesome/css/font-awesome.css'
+import { getTitleFromHostname } from 'components/Navi'
 
 export default class HTML extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { title: 'Mike Gajda' }
+  }
+
+  componentDidMount() {
+    this.setState({
+      title: getTitleFromHostname('Mike Gajda'),
+    })
+  }
   render() {
     return (
       <html lang="en">
@@ -16,6 +27,7 @@ export default class HTML extends React.Component {
             content="width=device-width, initial-scale=1.0"
           />
           {this.props.headComponents}
+          <title>{this.state.title}</title>
           <link
             rel="apple-touch-icon"
             sizes="180x180"
