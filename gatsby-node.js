@@ -46,6 +46,7 @@ exports.createPages = ({ graphql, actions }) => {
                       captions
                       remoteImage
                       excerpt
+                      ogInfoId
                       image {
                         childImageSharp {
                           fluid(maxWidth: 738) {

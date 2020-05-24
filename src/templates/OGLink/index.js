@@ -101,12 +101,12 @@ export const OGLink = (node, shouldShowPermalink) => {
                 aria-hidden="true"
               />
             </small>
-            {"websiteHostName"}
+            {'websiteHostName'}
           </div>
         </a>
       </div>
       <div className="card-body">
-        {<OGPicture id={3026269102} width={1050} height={549}/>}
+        {<OGPicture id={ogInfoId} width={1050} height={549}/>}
         {html ? <div dangerouslySetInnerHTML={{__html: html}}/> : ''}
       </div>
     </article>
