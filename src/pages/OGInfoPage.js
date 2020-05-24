@@ -84,9 +84,9 @@ export default function OGInfoPage() {
 
 
         <div>Error: {`${hasError}`}</div>
-        <article className="card my-4 container">
+        <div>ImageSlug: {`${isLoaded ? ogInfo.response.processedImageSlug : ""}`}</div>
+
           {ogInfoCard}
-        </article>
 
       </div>
 
