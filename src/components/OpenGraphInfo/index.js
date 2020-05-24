@@ -39,7 +39,7 @@ export const OGPicture = props => {
   let imageId = props.hash.split("_")[0];
   let imageWidth = parseInt(props.hash.split("_")[1].slice(0, -1))
   let imageHeight = parseInt(props.hash.split("_")[2].slice(0, -1))
-  console.log(imageId, imageWidth, imageHeight)
+  console.log(props.hash, imageId, imageWidth, imageHeight)
   return (
     <div style={{
       position: "relative",
@@ -53,6 +53,7 @@ export const OGPicture = props => {
       }}></div>
       <img
         onLoad={() => {
+          console.log("img onLoad() called")
           setImageIsLoaded(true)
         }}
         className={imageIsLoaded ? "opacity-1 position-absolute"
