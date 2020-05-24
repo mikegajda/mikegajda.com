@@ -35,9 +35,9 @@ const SvgInline = props => {
 
 export const OGPicture = props => {
   const [imageIsLoaded, setImageIsLoaded] = useState(false);
-  let imageId = props.slug.split("_")[0];
-  let imageWidth = parseInt(props.slug.split("_")[1].slice(0, -1))
-  let imageHeight = parseInt(props.slug.split("_")[2].slice(0, -1))
+  let imageId = props.hash.split("_")[0];
+  let imageWidth = parseInt(props.hash.split("_")[1].slice(0, -1))
+  let imageHeight = parseInt(props.hash.split("_")[2].slice(0, -1))
   console.log(imageId, imageWidth, imageHeight)
   return (
     <div style={{
@@ -53,7 +53,7 @@ export const OGPicture = props => {
       <img
         onLoad={() => {setImageIsLoaded(true)}}
         className={imageIsLoaded ? "opacity-1 position-absolute" : "opacity-0 position-absolute"}
-        src={`https://d13wavrzg1e7kd.cloudfront.net/${props.slug}`}
+        src={`https://d13wavrzg1e7kd.cloudfront.net/${props.hash}`}
       />
       <SvgInline url={`https://d13wavrzg1e7kd.cloudfront.net/${imageId}.svg`}
                  className={imageIsLoaded ? "opacity-0 position-absolute" : "svg opacity-1 position-absolute"} />
@@ -86,17 +86,17 @@ function extractHostname(url) {
   return hostname;
 }
 
-export const OGInfo = props => {
-  console.log("props.response=", props.response)
-  console.log("props.response.processedImageSlug=", props.response.processedImageSlug)
+export const OpenGraphInfo = props => {
+  let ogInfo = props.ogInfo
+  console.log("ogInfo=", ogInfo)
   return (
     <article className="border overflow-hidden my-4 container p-0 rounded">
       <div className={"card-img-top"}>
-        {props.response.processedImageSlug ? <OGPicture slug={props.response.processedImageSlug} /> : ""}
+        {ogInfo.processedImageHash ? <OGPicture hash={ogInfo.processedImageHash} /> : ""}
       </div>
       <div className="bg-light p-2 px-3  oglink-title">
-        <a href={props.response.data.ogUrl} target="_blank" className="">
-          {props.response.data.ogTitle ? <div className="h3 mb-0">{props.response.data.ogTitle}</div> : ""}
+        <a href={ogInfo.ogUrl} target="_blank" className="">
+          {ogInfo.ogTitle ? <div className="h3 mb-0">{ogInfo.ogTitle}</div> : ""}
 
           <div className="text-muted" style={{fontSize: '1rem'}}>
             <small>
@@ -106,7 +106,7 @@ export const OGInfo = props => {
                 aria-hidden="true"
               />
             </small>
-            {extractHostname(props.response.data.ogUrl)}
+            {extractHostname(ogInfo.ogUrl)}
           </div>
         </a>
       </div>

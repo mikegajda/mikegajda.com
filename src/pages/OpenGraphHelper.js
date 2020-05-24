@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import Layout from "components/Layout";
-import {OGInfo, OGPicture} from "components/OGInfo";
+import {OpenGraphInfo, OGPicture} from "components/OpenGraphInfo";
 
-function fetchInfo(url, setOgInfo, setIsLoaded, setIsLoading, setHasError) {
+function fetchInfo(url, breakCache, setOgInfo, setIsLoaded, setIsLoading, setHasError) {
   fetch(
-    `https://opengraph-helper.netlify.app/.netlify/functions/app/opengraph-info?url=${url}`,
+    `https://opengraph-helper.netlify.app/.netlify/functions/app/opengraph-info?url=${url}&breakCache=${breakCache}`,
   )
   .then(response => {
     if (!response.ok) {
@@ -26,23 +26,16 @@ function fetchInfo(url, setOgInfo, setIsLoaded, setIsLoading, setHasError) {
   })
 }
 
-export function OGInfoCard(ogInfo) {
-  console.log("ogInfo=", ogInfo)
-  if (ogInfo.ogInfo.response) {
-    return (
-      <OGInfo response={ogInfo.ogInfo.response} />
-    )
-  }
-}
-
-export default function OGInfoPage() {
+export default function OpenGraphHelper() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [shouldBreakCache, setShouldBreakCache] = useState(false)
   const [hasError, setHasError] = useState(false)
   const [ogInfo, setOgInfo] = useState()
   const [url, setUrl] = useState("")
 
-  let ogInfoCard = isLoaded ? <OGInfoCard ogInfo={ogInfo}/> : ""
+  let ogInfoCard = isLoaded ?  <OpenGraphInfo ogInfo={ogInfo} />
+    : ""
   let loadingIndicator = (
     isLoading ?
       <div className="spinner-border float-right" role="status">
@@ -64,27 +57,35 @@ export default function OGInfoPage() {
             onChange={(e) => setUrl(e.target.value)}
           />
         </div>
-        <div className="row">
+        <div className="row form-group">
           <div className="col">
             <button className={"btn btn-primary"}
                     onClick={() => {
                       setIsLoaded(false)
                       setIsLoading(true)
-                      fetchInfo(url, setOgInfo, setIsLoaded, setIsLoading,
+                      fetchInfo(url, shouldBreakCache, setOgInfo, setIsLoaded, setIsLoading,
                         setHasError)
                     }}>Submit
             </button>
+            <label className={"ml-4"}>
+              Break Cache:
+              <input
+                name="shouldBreakCache"
+                type="checkbox"
+                checked={shouldBreakCache}
+                className={"ml-2"}
+                onChange={() => {
+                  setShouldBreakCache(!shouldBreakCache)
+                }} />
+            </label>
           </div>
           <div className="col">
             {loadingIndicator}
           </div>
         </div>
 
-
-
-
         <div>Error: {`${hasError}`}</div>
-        <div>ImageSlug: {`${isLoaded ? ogInfo.response.processedImageSlug : ""}`}</div>
+        <div>ImageSlug: {`${isLoaded ? ogInfo.processedImageHash : ""}`}</div>
 
           {ogInfoCard}
 
