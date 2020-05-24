@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './style.scss';
+
 const svgToMiniDataURI = require('mini-svg-data-uri');
 
 const SvgInline = props => {
@@ -48,15 +49,19 @@ export const OGPicture = props => {
     }}>
       <div aria-hidden="true" style={{
         width: "100%",
-        paddingBottom: `${(imageHeight/imageWidth)*100}%`
+        paddingBottom: `${(imageHeight / imageWidth) * 100}%`
       }}></div>
       <img
-        onLoad={() => {setImageIsLoaded(true)}}
-        className={imageIsLoaded ? "opacity-1 position-absolute" : "opacity-0 position-absolute"}
+        onLoad={() => {
+          setImageIsLoaded(true)
+        }}
+        className={imageIsLoaded ? "opacity-1 position-absolute"
+          : "opacity-0 position-absolute"}
         src={`https://d13wavrzg1e7kd.cloudfront.net/${props.hash}`}
       />
       <SvgInline url={`https://d13wavrzg1e7kd.cloudfront.net/${imageId}.svg`}
-                 className={imageIsLoaded ? "opacity-0 position-absolute" : "svg opacity-1 position-absolute"} />
+                 className={imageIsLoaded ? "opacity-0 position-absolute"
+                   : "svg opacity-1 position-absolute"}/>
     </div>
 
   )
@@ -68,8 +73,7 @@ function extractHostname(url) {
 
   if (url.indexOf("//") > -1) {
     hostname = url.split('/')[2];
-  }
-  else {
+  } else {
     hostname = url.split('/')[0];
   }
 
@@ -79,7 +83,7 @@ function extractHostname(url) {
   hostname = hostname.split('?')[0];
 
   // remove www. if it exists
-  if (hostname.indexOf("www.") > -1){
+  if (hostname.indexOf("www.") > -1) {
     hostname = hostname.split('www.')[1];
   }
 
@@ -90,13 +94,15 @@ export const OpenGraphInfo = props => {
   let ogInfo = props.ogInfo
   console.log("ogInfo=", ogInfo)
   return (
-    <article className="border overflow-hidden my-4 container p-0 rounded">
+    <div className="border overflow-hidden my-4 container p-0 rounded">
       <div className={"card-img-top"}>
-        {ogInfo.processedImageHash ? <OGPicture hash={ogInfo.processedImageHash} /> : ""}
+        {ogInfo.processedImageHash ? <OGPicture
+          hash={ogInfo.processedImageHash}/> : ""}
       </div>
       <div className="bg-light p-2 px-3  oglink-title">
         <a href={ogInfo.ogUrl} target="_blank" className="">
-          {ogInfo.ogTitle ? <div className="h3 mb-0">{ogInfo.ogTitle}</div> : ""}
+          {ogInfo.ogTitle ? <div className="h3 mb-0">{ogInfo.ogTitle}</div>
+            : ""}
 
           <div className="text-muted" style={{fontSize: '1rem'}}>
             <small>
@@ -110,6 +116,72 @@ export const OpenGraphInfo = props => {
           </div>
         </a>
       </div>
-    </article>
+    </div>
+  )
+}
+
+function fetchOgInfo(ogImageHash, setOgInfo, setIsLoaded, setIsLoading,
+  setHasError) {
+  fetch(
+    `https://d13wavrzg1e7kd.cloudfront.net/${ogImageHash.split("_")[0]}.json`,
+  )
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    return response
+  })
+  .then(response => {
+    response.text().then(response => {
+      setOgInfo(JSON.parse(response))
+      setIsLoaded(true)
+      setIsLoading(false)
+    })
+  })
+  .catch((error) => {
+    console.error(error)
+    setHasError(true)
+    setIsLoading(false)
+  })
+}
+
+export const OpenGraphInfoContainer = props => {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const [ogInfo, setOgInfo] = useState({
+    ogUrl: "#",
+    ogTitle: "Loading..."
+  })
+
+  useEffect(() => {
+    fetchOgInfo(props.ogImageHash, setOgInfo, setIsLoaded, setIsLoading,
+      setHasError)
+  }, [])
+
+  return (
+    <div className="border overflow-hidden container p-0 rounded">
+      <div className={"card-img-top"}>
+        <a target="_blank" href={ogInfo.ogUrl}>
+          <OGPicture hash={props.ogImageHash}/>
+        </a>
+      </div>
+      <div className="bg-light p-2 px-3 oglink-title">
+        <a href={ogInfo.ogUrl} target="_blank" className="">
+          {<div className="h4 mb-0">{ogInfo.ogTitle}</div>}
+
+          <div className="text-muted" style={{fontSize: '.75rem'}}>
+            <small>
+              <i
+                className="fa fa-external-link mr-1"
+                style={{fontSize: '.55rem'}}
+                aria-hidden="true"
+              />
+            </small>
+            {extractHostname(ogInfo.ogUrl)}
+          </div>
+        </a>
+      </div>
+    </div>
   )
 }

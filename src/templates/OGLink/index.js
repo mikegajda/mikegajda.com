@@ -11,6 +11,7 @@ import Meta from '../../components/Meta/index'
 import Footer from 'components/Footer'
 import Layout from 'components/Layout'
 import './style.scss'
+import {OpenGraphInfo, OpenGraphInfoContainer} from "components/OpenGraphInfo";
 
 const SvgInline = props => {
   const [svg, setSvg] = useState(null);
@@ -82,6 +83,7 @@ export const OGLink = (node, shouldShowPermalink) => {
     description,
     title,
     ogInfoId,
+    ogImageHash,
     path,
     date,
     link,
@@ -89,25 +91,11 @@ export const OGLink = (node, shouldShowPermalink) => {
 
   return (
     <article className="container p-0 card my-4" key={node.absolutePath}>
-      <div className="card-header oglink-title">
-        <a href={link} className="">
-          <div className="h3 mb-0">TEST TITLE</div>
-
-          <div className="text-muted" style={{fontSize: '1rem'}}>
-            <small>
-              <i
-                class="fa fa-external-link mr-1"
-                style={{fontSize: '.75rem'}}
-                aria-hidden="true"
-              />
-            </small>
-            {'websiteHostName'}
-          </div>
-        </a>
-      </div>
       <div className="card-body">
-        {<OGPicture id={ogInfoId} width={1050} height={549}/>}
-        {html ? <div dangerouslySetInnerHTML={{__html: html}}/> : ''}
+        <OpenGraphInfoContainer ogImageHash={ogImageHash}/>
+        <div className={"mt-4"}>        {html ? <div
+          dangerouslySetInnerHTML={{__html: html}}/> : ''}
+        </div>
       </div>
     </article>
   )
@@ -167,7 +155,7 @@ export const pageQuery = graphql`
               description
               captions
               remoteImage
-              ogInfoId
+              ogImageHash
               image {
                 childImageSharp {
                   fluid(maxWidth: 738) {
