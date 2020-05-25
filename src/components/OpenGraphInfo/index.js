@@ -52,7 +52,7 @@ export const OGPicture = props => {
         paddingBottom: `${(imageHeight / imageWidth) * 100}%`
       }}></div>
       <img
-        className={imageIsLoaded ? "opacity-1 position-absolute"
+        className={props.isLoaded ? "opacity-1 position-absolute"
           : "opacity-0 position-absolute"}
         src={`https://d13wavrzg1e7kd.cloudfront.net/${props.hash}`}
         onLoad={() => {
@@ -62,7 +62,7 @@ export const OGPicture = props => {
         loading={"lazy"}
       />
       <SvgInline url={`https://d13wavrzg1e7kd.cloudfront.net/${imageId}.svg`}
-                 className={imageIsLoaded ? "opacity-0 position-absolute"
+                 className={props.isLoaded ? "opacity-0 position-absolute"
                    : "svg opacity-1 position-absolute"}/>
     </div>
 
@@ -152,7 +152,7 @@ export const OpenGraphInfoContainer = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [hasError, setHasError] = useState(false)
   const [ogInfo, setOgInfo] = useState({
-    ogUrl: "#",
+    ogUrl: "Loading...",
     ogTitle: "Loading..."
   })
 
@@ -165,7 +165,7 @@ export const OpenGraphInfoContainer = props => {
     <div className="border overflow-hidden container p-0 rounded">
       <div className={"card-img-top"}>
         <a target="_blank" href={ogInfo.ogUrl}>
-          <OGPicture hash={props.ogImageHash}/>
+          <OGPicture isLoaded={isLoaded} hash={props.ogImageHash}/>
         </a>
       </div>
       <div className="bg-light p-2 px-3 oglink-title">
