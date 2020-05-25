@@ -1,6 +1,6 @@
 ---
 layout: OGLink
-date: 2019-09-19T22:15:21.491Z
+date: 2019-09-20T22:15:21.491Z
 ogImageHash: 1644303871_960w_500h.jpg
 ---
 
