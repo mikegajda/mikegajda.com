@@ -52,13 +52,14 @@ export const OGPicture = props => {
         paddingBottom: `${(imageHeight / imageWidth) * 100}%`
       }}></div>
       <img
+        className={imageIsLoaded ? "opacity-1 position-absolute"
+          : "opacity-0 position-absolute"}
+        src={`https://d13wavrzg1e7kd.cloudfront.net/${props.hash}`}
         onLoad={() => {
           console.log("img onLoad() called")
           setImageIsLoaded(true)
         }}
-        className={imageIsLoaded ? "opacity-1 position-absolute"
-          : "opacity-0 position-absolute"}
-        src={`https://d13wavrzg1e7kd.cloudfront.net/${props.hash}`}
+        loading={"lazy"}
       />
       <SvgInline url={`https://d13wavrzg1e7kd.cloudfront.net/${imageId}.svg`}
                  className={imageIsLoaded ? "opacity-0 position-absolute"
