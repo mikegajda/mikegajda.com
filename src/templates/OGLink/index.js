@@ -3,6 +3,8 @@ import get from 'lodash/get'
 import React, {useEffect, useState} from 'react'
 import map from 'lodash/map'
 import Img from 'gatsby-image'
+const stringHash = require("string-hash");
+
 
 const svgToMiniDataURI = require('mini-svg-data-uri');
 
@@ -74,7 +76,7 @@ const OGPicture = props => {
   )
 }
 
-export const OGLink = (node, shouldShowPermalink) => {
+export const OGLink = (node, shouldShowPermalink, s3ObjectMap, s3ImagesMap) => {
   console.info('OGLink received this node=', node)
   const html = node.remark.html
   const {
@@ -87,12 +89,16 @@ export const OGLink = (node, shouldShowPermalink) => {
     path,
     date,
     link,
+    url
   } = node.remark.frontmatter
+
+  let urlHashKey = stringHash(url);
+
 
   return (
     <article className="container p-0 card my-4" key={node.absolutePath}>
       <div className="card-body">
-        <OpenGraphInfoContainer ogImageHash={ogImageHash}/>
+        <OpenGraphInfoContainer ogImage={`${urlHashKey}.jpg` in s3ImagesMap ? s3ImagesMap[`${urlHashKey}.jpg`] : null} ogInfo={`${urlHashKey}.json` in s3ObjectMap ? s3ObjectMap[`${urlHashKey}.json`]['content'] : null}/>
         <div className={"mt-4"}>        {html ? <div
           dangerouslySetInnerHTML={{__html: html}}/> : ''}
         </div>
@@ -102,6 +108,7 @@ export const OGLink = (node, shouldShowPermalink) => {
 }
 
 const OGLinkContainer = ({data, options}) => {
+  console.log("OGLinkContainer received this data=", data)
   let node = data.post.edges[0].node
   return (
     <Layout

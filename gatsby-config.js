@@ -94,6 +94,17 @@ module.exports = {
     'gatsby-plugin-sitemap',
     'gatsby-plugin-twitter',
     {
+      resolve: `@mikegajda/gatsby-source-s3`,
+      options: {
+        aws: {
+          accessKeyId: process.env.MG_AWS_KEY_ID,
+          secretAccessKey: process.env.MG_AWS_SECRET_ACCESS_KEY,
+          region: 'us-east-1',
+        },
+        buckets: ["cdn.mikegajda.com"],
+      },
+    },
+    {
       resolve: `gatsby-plugin-feed`,
       options: {
         query: `

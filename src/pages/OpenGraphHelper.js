@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import Layout from "components/Layout";
 import {OpenGraphInfo, OGPicture} from "components/OpenGraphInfo";
+import Img from "gatsby-image";
 
-function fetchInfo(url, breakCache, setOgInfo, setIsLoaded, setIsLoading, setHasError) {
+function fetchInfo(url, breakCache, setOgInfo, setIsLoaded, setIsLoading,
+  setHasError) {
   fetch(
     `https://opengraph-helper.netlify.app/.netlify/functions/app/opengraph-info?url=${url}&breakCache=${breakCache}`,
   )
@@ -34,7 +36,7 @@ export default function OpenGraphHelper() {
   const [ogInfo, setOgInfo] = useState()
   const [url, setUrl] = useState("")
 
-  let ogInfoCard = isLoaded ?  <OpenGraphInfo ogInfo={ogInfo} />
+  let ogInfoCard = isLoaded ? <OpenGraphInfo ogInfo={ogInfo}/>
     : ""
   let loadingIndicator = (
     isLoading ?
@@ -63,7 +65,8 @@ export default function OpenGraphHelper() {
                     onClick={() => {
                       setIsLoaded(false)
                       setIsLoading(true)
-                      fetchInfo(url, shouldBreakCache, setOgInfo, setIsLoaded, setIsLoading,
+                      fetchInfo(url, shouldBreakCache, setOgInfo, setIsLoaded,
+                        setIsLoading,
                         setHasError)
                     }}>Submit
             </button>
@@ -76,7 +79,7 @@ export default function OpenGraphHelper() {
                 className={"ml-2"}
                 onChange={() => {
                   setShouldBreakCache(!shouldBreakCache)
-                }} />
+                }}/>
             </label>
           </div>
           <div className="col">
@@ -87,7 +90,31 @@ export default function OpenGraphHelper() {
         <div>Error: {`${hasError}`}</div>
         <div>ImageSlug: {`${isLoaded ? ogInfo.processedImageHash : ""}`}</div>
 
-          {ogInfoCard}
+        {isLoaded ? (
+          <div className="border overflow-hidden container p-0 rounded mt-2">
+            <div className={"card-img-top"}>
+              <a target="_blank" href={ogInfo.ogUrl}>
+                <img className={"m-0 p-0 "} src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash}`}/>
+              </a>
+            </div>
+            <div className="bg-light p-2 px-3 oglink-title">
+              <a href={ogInfo.ogUrl} target="_blank" className="">
+                {<div className="h4 mb-0">{ogInfo.ogTitle}</div>}
+
+                <div className="text-muted" style={{fontSize: '.75rem'}}>
+                  <small>
+                    <i
+                      className="fa fa-external-link mr-1"
+                      style={{fontSize: '.55rem'}}
+                      aria-hidden="true"
+                    />
+                  </small>
+                  {ogInfo.ogUrl}
+                </div>
+              </a>
+            </div>
+          </div>
+        ) : ''}
 
       </div>
 

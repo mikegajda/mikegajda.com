@@ -1,6 +1,7 @@
 const each = require('lodash/each')
 const Promise = require('bluebird')
 const path = require('path')
+const fs = require('fs')
 const Post = path.resolve('./src/templates/Post/index.js')
 const LinkPost = path.resolve('./src/templates/LinkPost/index.js')
 const Image = path.resolve('./src/templates/Image/index.js')
@@ -47,6 +48,7 @@ exports.createPages = ({ graphql, actions }) => {
                       remoteImage
                       excerpt
                       ogImageHash
+                      url
                       image {
                         childImageSharp {
                           fluid(maxWidth: 738) {
@@ -77,6 +79,36 @@ exports.createPages = ({ graphql, actions }) => {
                 }
               }
             }
+            allS3Object(filter: { Key: { glob: "*.json" } }) {
+              edges {
+                node {
+                  Key
+                  localFile {
+                    absolutePath
+                  }
+                }
+              }
+            }
+            allS3Images: allS3Object(filter: { Key: { glob: "*.jpg" } }) {
+              edges {
+                node {
+                  Key
+                  localFile {
+                    childImageSharp {
+                      fluid(maxWidth: 738) {
+                        tracedSVG
+                        aspectRatio
+                        src
+                        srcSet
+                        srcWebp
+                        srcSetWebp
+                        sizes
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         `
       )
@@ -85,29 +117,39 @@ exports.createPages = ({ graphql, actions }) => {
             console.log(errors)
             reject(errors)
           }
-          return data.allFile.edges
+          return data
         })
-        .then(posts => {
-          posts.sort(function(a, b) {
+        .then((data) => {
+          let posts = data.allFile.edges
+          posts.sort(function (a, b) {
             a = new Date(a.node.remark.frontmatter.publishDate)
             b = new Date(b.node.remark.frontmatter.publishDate)
             return a > b ? -1 : a < b ? 1 : 0
           })
-          return posts
+          data.allFile.edges = posts
+          return data
         })
-        .then(posts => {
+        .then((data) => {
+          data.allS3Object.edges.forEach((edge) => {
+            edge['node']['localFile']['content'] = JSON.parse(
+              fs.readFileSync(edge.node.localFile.absolutePath, 'utf8')
+            )
+          })
           createPaginatedPages({
-            edges: posts,
+            edges: data.allFile.edges,
             createPage: createPage,
             pageTemplate: 'src/templates/index.js',
             pageLength: 15, // This is optional and defaults to 10 if not used
             pathPrefix: '', // This is optional and defaults to an empty string if not used
-            context: {}, // This is optional and defaults to an empty object if not used
+            context: {
+              allS3Object: data.allS3Object.edges,
+              allS3Images: data.allS3Images.edges,
+            }, // This is optional and defaults to an empty object if not used
           })
 
           createPaginatedPages({
-            edges: posts.filter(
-              post =>
+            edges: data.allFile.edges.filter(
+              (post) =>
                 post.node.remark.frontmatter.layout === 'OGLink' ||
                 post.node.remark.frontmatter.layout === 'Post'
             ),
@@ -119,8 +161,8 @@ exports.createPages = ({ graphql, actions }) => {
           })
 
           createPaginatedPages({
-            edges: posts.filter(
-              post => post.node.remark.frontmatter.layout === 'Youtube'
+            edges: data.allFile.edges.filter(
+              (post) => post.node.remark.frontmatter.layout === 'Youtube'
             ),
             createPage: createPage,
             pageTemplate: 'src/templates/index.js',
@@ -130,8 +172,8 @@ exports.createPages = ({ graphql, actions }) => {
           })
 
           createPaginatedPages({
-            edges: posts.filter(
-              post =>
+            edges: data.allFile.edges.filter(
+              (post) =>
                 post.node.remark.frontmatter.layout === 'Image' ||
                 post.node.remark.frontmatter.layout === 'Gallery'
             ),
@@ -142,7 +184,7 @@ exports.createPages = ({ graphql, actions }) => {
             context: {}, // This is optional and defaults to an empty object if not used
           })
 
-          posts.forEach(edge => {
+          data.allFile.edges.forEach((edge) => {
             let node = edge.node
 
             if (!node.remark) {

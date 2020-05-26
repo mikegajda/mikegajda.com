@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './style.scss';
+import Img from "gatsby-image";
 
 const svgToMiniDataURI = require('mini-svg-data-uri');
 
@@ -52,14 +53,15 @@ export const OGPicture = props => {
         paddingBottom: `${(imageHeight / imageWidth) * 100}%`
       }}></div>
       <img
-        className={props.isLoaded ? "opacity-1 position-absolute"
-          : "opacity-0 position-absolute"}
-        src={`https://d13wavrzg1e7kd.cloudfront.net/${props.hash}`}
         onLoad={() => {
           console.log("img onLoad() called")
           setImageIsLoaded(true)
         }}
+        className={props.isLoaded ? "opacity-1 position-absolute"
+          : "opacity-0 position-absolute"}
+        src={`https://d13wavrzg1e7kd.cloudfront.net/${props.hash}`}
         loading={"lazy"}
+
       />
       <SvgInline url={`https://d13wavrzg1e7kd.cloudfront.net/${imageId}.svg`}
                  className={props.isLoaded ? "opacity-0 position-absolute"
@@ -148,29 +150,20 @@ function fetchOgInfo(ogImageHash, setOgInfo, setIsLoaded, setIsLoading,
 }
 
 export const OpenGraphInfoContainer = props => {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [hasError, setHasError] = useState(false)
-  const [ogInfo, setOgInfo] = useState({
-    ogUrl: "Loading...",
-    ogTitle: "Loading..."
-  })
-
-  useEffect(() => {
-    fetchOgInfo(props.ogImageHash, setOgInfo, setIsLoaded, setIsLoading,
-      setHasError)
-  }, [])
+  console.log("OpenGraphInfoContainer props=", props)
 
   return (
     <div className="border overflow-hidden container p-0 rounded">
       <div className={"card-img-top"}>
-        <a target="_blank" href={ogInfo.ogUrl}>
-          <OGPicture isLoaded={isLoaded} hash={props.ogImageHash}/>
-        </a>
+          {props.ogImage.childImageSharp.fluid ? (
+            <a target="_blank" href={props.ogInfo.ogUrl}>
+              <Img fluid={props.ogImage.childImageSharp.fluid} />
+            </a>
+          ) : ''}
       </div>
       <div className="bg-light p-2 px-3 oglink-title">
-        <a href={ogInfo.ogUrl} target="_blank" className="">
-          {<div className="h4 mb-0">{ogInfo.ogTitle}</div>}
+        <a href={props.ogInfo.ogUrl} target="_blank" className="">
+          {<div className="h4 mb-0">{props.ogInfo.ogTitle}</div>}
 
           <div className="text-muted" style={{fontSize: '.75rem'}}>
             <small>
@@ -180,7 +173,7 @@ export const OpenGraphInfoContainer = props => {
                 aria-hidden="true"
               />
             </small>
-            {extractHostname(ogInfo.ogUrl)}
+            {extractHostname(props.ogInfo.ogUrl)}
           </div>
         </a>
       </div>
