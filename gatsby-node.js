@@ -157,7 +157,10 @@ exports.createPages = ({ graphql, actions }) => {
             pageTemplate: 'src/templates/index.js',
             pageLength: 5, // This is optional and defaults to 10 if not used
             pathPrefix: 'posts', // This is optional and defaults to an empty string if not used
-            context: {}, // This is optional and defaults to an empty object if not used
+            context: {
+              allS3Object: data.allS3Object.edges,
+              allS3Images: data.allS3Images.edges,
+            }, // This is optional and defaults to an empty object if not used
           })
 
           createPaginatedPages({
@@ -168,7 +171,10 @@ exports.createPages = ({ graphql, actions }) => {
             pageTemplate: 'src/templates/index.js',
             pageLength: 5, // This is optional and defaults to 10 if not used
             pathPrefix: 'videos', // This is optional and defaults to an empty string if not used
-            context: {}, // This is optional and defaults to an empty object if not used
+            context: {
+              allS3Object: data.allS3Object.edges,
+              allS3Images: data.allS3Images.edges,
+            }, // This is optional and defaults to an empty object if not used
           })
 
           createPaginatedPages({
@@ -181,7 +187,10 @@ exports.createPages = ({ graphql, actions }) => {
             pageTemplate: 'src/templates/index.js',
             pageLength: 5, // This is optional and defaults to 10 if not used
             pathPrefix: 'images', // This is optional and defaults to an empty string if not used
-            context: {}, // This is optional and defaults to an empty object if not used
+            context: {
+              allS3Object: data.allS3Object.edges,
+              allS3Images: data.allS3Images.edges,
+            }, // This is optional and defaults to an empty object if not used
           })
 
           data.allFile.edges.forEach((edge) => {

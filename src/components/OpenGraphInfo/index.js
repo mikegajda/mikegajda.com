@@ -155,28 +155,31 @@ export const OpenGraphInfoContainer = props => {
   return (
     <div className="border overflow-hidden container p-0 rounded">
       <div className={"card-img-top"}>
-          {props.ogImage.childImageSharp.fluid ? (
+          {props.ogImage && props.ogImage.childImageSharp && props.ogImage.childImageSharp.fluid ? (
             <a target="_blank" href={props.ogInfo.ogUrl}>
               <Img fluid={props.ogImage.childImageSharp.fluid} />
             </a>
           ) : ''}
       </div>
-      <div className="bg-light p-2 px-3 oglink-title">
-        <a href={props.ogInfo.ogUrl} target="_blank" className="">
-          {<div className="h4 mb-0">{props.ogInfo.ogTitle}</div>}
+      {props.ogInfo && props.ogInfo.ogUrl ? (
+        <div className="bg-light p-2 px-3 oglink-title">
+          <a href={props.ogInfo.ogUrl} target="_blank" className="">
+            {<div className="h4 mb-0">{props.ogInfo.ogTitle}</div>}
 
-          <div className="text-muted" style={{fontSize: '.75rem'}}>
-            <small>
-              <i
-                className="fa fa-external-link mr-1"
-                style={{fontSize: '.55rem'}}
-                aria-hidden="true"
-              />
-            </small>
-            {extractHostname(props.ogInfo.ogUrl)}
-          </div>
-        </a>
-      </div>
+            <div className="text-muted" style={{fontSize: '.75rem'}}>
+              <small>
+                <i
+                  className="fa fa-external-link mr-1"
+                  style={{fontSize: '.55rem'}}
+                  aria-hidden="true"
+                />
+              </small>
+              {extractHostname(props.ogInfo.ogUrl)}
+            </div>
+          </a>
+        </div>
+      ) : ""}
+
     </div>
   )
 }

@@ -92,8 +92,10 @@ export const OGLink = (node, shouldShowPermalink, s3ObjectMap, s3ImagesMap) => {
     url
   } = node.remark.frontmatter
 
-  let urlHashKey = stringHash(url);
+  let urlHashKey = stringHash(url ? url : 'http://mikegajda.com');
 
+  s3ObjectMap = s3ObjectMap ? s3ObjectMap : {}
+  s3ImagesMap = s3ImagesMap ? s3ImagesMap : {}
 
   return (
     <article className="container p-0 card my-4" key={node.absolutePath}>
