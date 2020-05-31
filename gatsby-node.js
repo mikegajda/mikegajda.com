@@ -47,7 +47,6 @@ exports.createPages = ({ graphql, actions }) => {
                       captions
                       remoteImage
                       excerpt
-                      ogImageHash
                       url
                       image {
                         childImageSharp {

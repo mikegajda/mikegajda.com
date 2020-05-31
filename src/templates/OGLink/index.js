@@ -164,7 +164,6 @@ export const pageQuery = graphql`
               description
               captions
               remoteImage
-              ogImageHash
               image {
                 childImageSharp {
                   fluid(maxWidth: 738) {

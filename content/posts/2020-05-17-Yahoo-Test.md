@@ -1,7 +1,6 @@
 ---
 layout: OGLink
 date: 2019-09-20T22:15:21.491Z
-ogImageHash: 1644303871_960w_500h.jpg
 url: https://www.theatlantic.com/health/archive/2019/09/dangers-peanut-allergy-drug/597997/
 ---
 
