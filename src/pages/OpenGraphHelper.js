@@ -122,9 +122,9 @@ export default function OpenGraphHelper() {
             <h4>Description/Excerpt</h4>
             <p>{ogInfo.ogDescription}</p>
             <h4>IG Feed</h4>
-            <img width={"600px"}src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
+            <img width={"500px"}src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
             <h4>IG Story</h4>
-            <img width={"600px"} src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_story.jpg`} />
+            <img width={"500px"} src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_story.jpg`} />
           </div>
 
         ) : ''}
