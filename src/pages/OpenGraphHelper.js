@@ -86,12 +86,14 @@ export default function OpenGraphHelper() {
             {loadingIndicator}
           </div>
         </div>
+        <hr />
 
         <div>Error: {`${hasError}`}</div>
         <div>ImageSlug: {`${isLoaded ? ogInfo.processedImageHash : ""}`}</div>
 
         {isLoaded ? (
           <div>
+            <h4>OpenGraphContainer</h4>
             <div className="border overflow-hidden container p-0 rounded mt-2">
               <div className={"card-img-top"}>
                 <a target="_blank" href={ogInfo.ogUrl}>
@@ -116,12 +118,15 @@ export default function OpenGraphHelper() {
                 </a>
               </div>
             </div>
-            <hr/>
-            <div>IG Feed</div>
-            <img width={"400px"}src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
-            <hr/>
-            <div>IG Story</div>
-            <img width={"400px"} src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_story.jpg`} />
+            <hr />
+            <h4>Description/Excerpt</h4>
+            <p>{ogInfo.ogDescription}</p>
+            <h4>IG Feed</h4>
+            <img width={"600px"}src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
+            <h4>IG Story</h4>
+            <img width={"600px"} src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_story.jpg`} />
+            <h4>Webpage</h4>
+            <iframe frameBorder={0} width={"100%"} height={"1000px"} src={ogInfo.ogUrl} />
           </div>
 
         ) : ''}
