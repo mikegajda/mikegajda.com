@@ -125,8 +125,6 @@ export default function OpenGraphHelper() {
             <img width={"600px"}src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
             <h4>IG Story</h4>
             <img width={"600px"} src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_story.jpg`} />
-            <h4>Webpage</h4>
-            <iframe frameBorder={0} width={"100%"} height={"1000px"} src={ogInfo.ogUrl} />
           </div>
 
         ) : ''}
