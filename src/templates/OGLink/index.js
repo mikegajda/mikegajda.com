@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react'
 import map from 'lodash/map'
 import Img from 'gatsby-image'
 const stringHash = require("string-hash");
-
+const urlParser = require('url');
 
 const svgToMiniDataURI = require('mini-svg-data-uri');
 
@@ -92,7 +92,10 @@ export const OGLink = (node, shouldShowPermalink, s3ObjectMap, s3ImagesMap) => {
     url
   } = node.remark.frontmatter
 
-  let urlHashKey = stringHash(url ? url : 'http://mikegajda.com');
+  let parsedUrl = urlParser.parse(url ? url : "https://mikegajda.com");
+  let cleanUrl = parsedUrl.protocol + "//" + parsedUrl.host + parsedUrl.pathname
+
+  let urlHashKey = stringHash(cleanUrl);
 
   s3ObjectMap = s3ObjectMap ? s3ObjectMap : {}
   s3ImagesMap = s3ImagesMap ? s3ImagesMap : {}
