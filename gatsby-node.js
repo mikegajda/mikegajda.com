@@ -55,8 +55,6 @@ exports.createPages = ({ graphql, actions }) => {
                             aspectRatio
                             src
                             srcSet
-                            srcWebp
-                            srcSetWebp
                             sizes
                           }
                         }
@@ -68,8 +66,6 @@ exports.createPages = ({ graphql, actions }) => {
                             aspectRatio
                             src
                             srcSet
-                            srcWebp
-                            srcSetWebp
                           }
                         }
                       }
@@ -78,7 +74,7 @@ exports.createPages = ({ graphql, actions }) => {
                 }
               }
             }
-            allS3Object(filter: { Key: { glob: "*.json" } }) {
+            allS3Object(filter: { Key: { regex: "/^[^_]+\\\\.json$/" } }) {
               edges {
                 node {
                   Key
@@ -88,7 +84,9 @@ exports.createPages = ({ graphql, actions }) => {
                 }
               }
             }
-            allS3Images: allS3Object(filter: { Key: { glob: "*.jpg" } }) {
+            allS3Images: allS3Object(
+              filter: { Key: { regex: "/^[^_]+\\\\.jpg$/" } }
+            ) {
               edges {
                 node {
                   Key
@@ -99,8 +97,6 @@ exports.createPages = ({ graphql, actions }) => {
                         aspectRatio
                         src
                         srcSet
-                        srcWebp
-                        srcSetWebp
                         sizes
                       }
                     }
