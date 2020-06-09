@@ -97,13 +97,16 @@ export default function OpenGraphHelper() {
             <div className="border overflow-hidden container p-0 rounded mt-2">
               <div className={"card-img-top"}>
                 <a target="_blank" href={ogInfo.ogUrl}>
-                  <img className={"m-0 p-0 "}
-                       src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash}`}/>
+                  {ogInfo.processedImageHash ? (
+                    <img className={"m-0 p-0 "}
+                         src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash}`}/>
+                  ) : ""}
+
                 </a>
               </div>
               <div className="bg-light p-2 px-3 oglink-title">
-                <a href={ogInfo.ogUrl} target="_blank" className="">
-                  {<div className="h4 mb-0">{ogInfo.ogTitle}</div>}
+                <a href={ogInfo.ogUrl ? ogInfo.ogUrl : ""} target="_blank" className="">
+                  {<div className="h4 mb-0">{ogInfo.ogTitle ? ogInfo.ogTitle : "NO TITLE"}</div>}
 
                   <div className="text-muted" style={{fontSize: '.75rem'}}>
                     <small>
@@ -113,21 +116,27 @@ export default function OpenGraphHelper() {
                         aria-hidden="true"
                       />
                     </small>
-                    {ogInfo.ogUrl}
+                    {ogInfo.ogUrl ? ogInfo.ogUrl : ""}
                   </div>
                 </a>
               </div>
             </div>
             <hr />
             <h4>Title</h4>
-            <p>{ogInfo.ogTitle
-            }</p>
+            {ogInfo.ogTitle ? (<p>{ogInfo.ogTitle}</p>) : "" }
             <h4>Description/Excerpt</h4>
-            <p>{ogInfo.ogDescription}</p>
+            {ogInfo.ogDescription ? (<p>{ogInfo.ogDescription}</p>) : ""}
             <h4>IG Feed</h4>
-            <img width={"500px"}src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
+            {ogInfo.processedImageHash ? (
+              <img width={"500px"}src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
+            ) : ""}
+
             <h4>IG Story</h4>
-            <img width={"500px"} src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_story.jpg`} />
+            {ogInfo.processedImageHash ? (
+              <img width={"500px"} src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_story.jpg`} />
+            ) : ""}
+
+
           </div>
 
         ) : ''}
