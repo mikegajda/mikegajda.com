@@ -119,6 +119,9 @@ export default function OpenGraphHelper() {
               </div>
             </div>
             <hr />
+            <h4>Title</h4>
+            <p>{ogInfo.ogTitle
+            }</p>
             <h4>Description/Excerpt</h4>
             <p>{ogInfo.ogDescription}</p>
             <h4>IG Feed</h4>
