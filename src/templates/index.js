@@ -73,11 +73,16 @@ const BlogIndex = ({ data, pathContext }) => {
 
 
   const { group, index, first, last, pageCount, pathPrefix } = pathContext
+  console.log("group=", group)
+  console.log("index=", index)
+  console.log("first=", first)
+  console.log("last=", last)
+  console.log("pageCount=", pageCount)
   const previousUrl =
     index - 1 == 1
-      ? '' + pathContext.pathPrefix
-      : pathContext.pathPrefix + '/' + (index - 1).toString()
-  const nextUrl = pathContext.pathPrefix + '/' + (index + 1).toString()
+      ? '/' + pathContext.pathPrefix
+      : '/' + pathContext.pathPrefix + '/' + (index - 1).toString()
+  const nextUrl = '/' + pathContext.pathPrefix + '/' + (index + 1).toString()
 
   return (
     <Layout location={'/'}>
