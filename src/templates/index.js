@@ -55,7 +55,6 @@ export function getIndexPageTitleFromPathPrefixAndIndex(pathPrefix, index) {
 }
 
 function createS3ObjectMap(allS3Object) {
-  console.log("allS3Object=", allS3Object)
   let s3ObjectMap = {}
   allS3Object.forEach((s3Object) => {
     s3ObjectMap[s3Object.node.Key] = s3Object.node.localFile
@@ -66,28 +65,18 @@ function createS3ObjectMap(allS3Object) {
 const BlogIndex = ({data, pathContext}) => {
   const posts = pathContext.group
 
-  console.log('pathContext = ', pathContext)
   let s3ObjectMap = createS3ObjectMap(pathContext.allS3Object)
-  console.log("s3ObjectMap", s3ObjectMap)
 
   let s3ImageMap = createS3ObjectMap(pathContext.allS3Images)
-  console.log("s3ImageMap", s3ImageMap)
 
   const {group, index, first, last, pageCount, pathPrefix} = pathContext
-  console.log('group=', group)
-  console.log('index=', index)
-  console.log('first=', first)
-  console.log('last=', last)
-  console.log('pageCount=', pageCount)
-  console.log('pathPrefix=', pathPrefix)
+
   const pathPrefixRelative = pathPrefix === '' ? '/' : `/${pathPrefix}/`
   const previousUrl =
     index - 1 === 1
       ? `${pathPrefixRelative}`
       : `${pathPrefixRelative}${index - 1}`
   const nextUrl = `${pathPrefixRelative}${index + 1}`
-  console.log('previousUrl=', previousUrl)
-  console.log('nextUrl=', nextUrl)
 
   return (
     <Layout location={'/'}>

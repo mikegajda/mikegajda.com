@@ -25,7 +25,7 @@ class Navi extends React.Component {
             <h1 className="navbar-brand mb-0">{this.state.title}</h1>
           </Link>
           <button
-            class="navbar-toggler border-0"
+            className="navbar-toggler border-0"
             type="button"
             data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -33,55 +33,55 @@ class Navi extends React.Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon" />
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
                 <Link className="nav-link" to="/posts">
                   Posts
                   <i
-                    class="fa fa-file-text d-md-none ml-2"
+                    className="fa fa-file-text d-md-none ml-2"
                     aria-hidden="true"
                   />
                 </Link>
               </li>
-              <li class="nav-item active">
+              <li className="nav-item active">
                 <Link className="nav-link" to="/images">
                   Images
-                  <i class="fa fa-camera d-md-none ml-2" aria-hidden="true" />
+                  <i className="fa fa-camera d-md-none ml-2" aria-hidden="true" />
                 </Link>
               </li>
-              <li class="nav-item active">
+              <li className="nav-item active">
                 <Link className="nav-link" to="/videos">
                   Videos
                   <i
-                    class="fa fa-video-camera d-md-none ml-2"
+                    className="fa fa-video-camera d-md-none ml-2"
                     aria-hidden="true"
                   />
                 </Link>
               </li>
             </ul>
-            <ul class="navbar-nav">
-              <li class="nav-item active">
+            <ul className="navbar-nav">
+              <li className="nav-item active">
                 <a className="nav-link" href="https://twitter.com/mikendever">
                   <span className="d-md-none mr-2">Twitter</span>
-                  <i class="fa fa-twitter" aria-hidden="true" />
+                  <i className="fa fa-twitter" aria-hidden="true" />
                 </a>
               </li>
-              <li class="nav-item active">
+              <li className="nav-item active">
                 <a className="nav-link" href="https://github.com/mikegajda">
                   <span className="d-md-none mr-2">Github</span>
-                  <i class="fa fa-github" aria-hidden="true" />
+                  <i className="fa fa-github" aria-hidden="true" />
                 </a>
               </li>
-              <li class="nav-item active">
+              <li className="nav-item active">
                 <a
                   className="nav-link"
                   href="https://www.linkedin.com/in/mgajda"
                 >
                   <span className="d-md-none mr-2">LinkedIn</span>
-                  <i class="fa fa-linkedin-square" aria-hidden="true" />
+                  <i className="fa fa-linkedin-square" aria-hidden="true" />
                 </a>
               </li>
             </ul>

@@ -10,14 +10,11 @@ const SvgInline = props => {
   const [isErrored, setIsErrored] = useState(false);
 
   useEffect(() => {
-    console.log("url=", props.url);
     fetch(props.url)
     .then(res => {
-      console.log("res", res)
       return res.text()
     })
     .then(res => {
-      console.log("res", res)
       return res
     })
     .then(setSvg)
@@ -54,7 +51,6 @@ export const OGPicture = props => {
       }}></div>
       <img
         onLoad={() => {
-          console.log("img onLoad() called")
           setImageIsLoaded(true)
         }}
         className={props.isLoaded ? "opacity-1 position-absolute"
@@ -96,7 +92,6 @@ function extractHostname(url) {
 
 export const OpenGraphInfo = props => {
   let ogInfo = props.ogInfo
-  console.log("ogInfo=", ogInfo)
   return (
     <div className="border overflow-hidden my-4 container p-0 rounded">
       <div className={"card-img-top"}>
@@ -150,7 +145,6 @@ function fetchOgInfo(ogImageHash, setOgInfo, setIsLoaded, setIsLoading,
 }
 
 export const OpenGraphInfoContainer = props => {
-  console.log("OpenGraphInfoContainer props=", props)
 
   return (
     <div className="border overflow-hidden container p-0 rounded">

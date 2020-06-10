@@ -21,14 +21,11 @@ const SvgInline = props => {
   const [isErrored, setIsErrored] = useState(false);
 
   useEffect(() => {
-    console.log("url=", props.url);
     fetch(props.url)
     .then(res => {
-      console.log("res", res)
       return res.text()
     })
     .then(res => {
-      console.log("res", res)
       return res
     })
     .then(setSvg)
@@ -77,7 +74,6 @@ const OGPicture = props => {
 }
 
 export const OGLink = (node, shouldShowPermalink, s3ObjectMap, s3ImagesMap) => {
-  console.info('OGLink received this node=', node)
   const html = node.remark.html
   const {
     category,
@@ -119,7 +115,6 @@ export const OGLink = (node, shouldShowPermalink, s3ObjectMap, s3ImagesMap) => {
 }
 
 const OGLinkContainer = ({data, options}) => {
-  console.log("OGLinkContainer received this data=", data)
   let node = data.post.edges[0].node
   return (
     <Layout

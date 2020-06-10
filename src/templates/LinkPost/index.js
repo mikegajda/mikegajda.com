@@ -27,7 +27,6 @@ const metascraper = require('metascraper')([
 // }
 
 export const LinkPost = node => {
-  console.log('LinkPost received this node=', node)
   const html = node.remark.html
   const {
     category,
@@ -46,11 +45,6 @@ export const LinkPost = node => {
     .replace(/(^\w+:|^)\/\//, '')
     .replace(/^www\./, '')
     .split(/[/?#]/)[0]
-
-  // let metadata = (async () => {
-  //   return getMetaData(link).then(metadata => metadata)
-  // })()
-  // console.log('metadata', metadata)
 
   return (
     <article className="card my-4 container p-0" key={node.absolutePath}>

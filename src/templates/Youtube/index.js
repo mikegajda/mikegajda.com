@@ -8,7 +8,6 @@ import './style.scss'
 import URL from 'url-parse'
 
 export const Youtube = node => {
-  console.log('Youtube received this node=', node)
   const html = node.remark.html
   const {
     category,
@@ -25,7 +24,6 @@ export const Youtube = node => {
   let prettyLink = link.replace(/(^\w+:|^)\/\//, '').replace(/^www\./, '')
 
   let youtubeKey = new URL(link, true).query.v
-  console.log('youtubeKey = ', youtubeKey)
 
   if (youtubeKey) {
     return (
