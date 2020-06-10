@@ -102,6 +102,12 @@ export const OGLink = (node, shouldShowPermalink, s3ObjectMap, s3ImagesMap) => {
 
   return (
     <article className="container p-0 card my-4" key={node.absolutePath}>
+      <div className="card-header">
+        <span className="text-muted">Link</span>
+        <time className="text-muted float-right" dateTime={date}>
+          {date}
+        </time>
+      </div>
       <div className="card-body">
         <OpenGraphInfoContainer ogImage={`${urlHashKey}.jpg` in s3ImagesMap ? s3ImagesMap[`${urlHashKey}.jpg`] : null} ogInfo={`${urlHashKey}.json` in s3ObjectMap ? s3ObjectMap[`${urlHashKey}.json`]['content'] : null}/>
         <div className={"mt-4"}>        {html ? <div
