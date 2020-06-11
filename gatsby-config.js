@@ -39,6 +39,7 @@ module.exports = {
             options: {
               maxWidth: 750,
               linkImagesToOriginal: false,
+              tracedSVG: true,
               wrapperStyle: 'margin-bottom: 1.0725rem;',
             },
           },

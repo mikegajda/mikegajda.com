@@ -6,7 +6,7 @@ image: ../images/cloud-5055011_1920.jpg
 description: An American Marriage - Book Review
 category: 'Book Review'
 ---
-_An American Marriage_ is a novel about not only the difficulties of a new marriage but also the pernicious effects of the American justice system. Author Tayari Jones notes that the foundation of this novel was a childhood in which "men are under siege," specifically black men who Jones notes are subject to a justice system that "criminalizes black men and destroys families."
+_An American Marriage_ is a novel about not only the difficulties of a new marriage but also the pernicious effects of the American justice system. Author Tayari Jones notes that the foundation of this novel was a childhood in which "men are under siege," specifically black men who are subject to a justice system that "criminalizes black men and destroys families."
 
 Throughout _An American Marriage_ Jones asks readers to grapple with questions between right and wrong. Is it right for a man to be sentenced to twelve years in prison for a crime he did not commit? Is it right for a new wife to leave her wrongfully imprisoned husband after years of not speaking to him? Is it right to even make a value judgement on the characters given what they've been subjected to? Is it right that in America today one's life can be turned upside down by a racist judge? 
 
