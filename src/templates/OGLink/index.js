@@ -129,3 +129,74 @@ const OGLinkContainer = ({data, options}) => {
 }
 
 export default OGLinkContainer
+
+export const pageQuery = graphql`
+  query LinkQueryByPath($absolutePath: String!) {
+    site {
+      meta: siteMetadata {
+        title
+        description
+        url: siteUrl
+        author
+        twitter
+        adsense
+      }
+    }
+    post: allFile(filter: { absolutePath: { eq: $absolutePath } }) {
+      edges {
+        node {
+          id: absolutePath
+          relativePath
+          relativeDirectory
+          absolutePath
+          sourceInstanceName
+          name
+          ext
+          birthTime(formatString: "YYYY-MM-DD hh:mm:ss")
+          changeTime(formatString: "YYYY-MM-DD hh:mm:ss")
+          remark: childMarkdownRemark {
+            id
+            html
+            frontmatter {
+              layout
+              title
+              link
+              date(formatString: "YYYY/MM/DD")
+              publishDate: date
+              category
+              tags
+              description
+              captions
+              remoteImage
+              image {
+                childImageSharp {
+                  fluid(maxWidth: 738) {
+                    tracedSVG
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                  }
+                }
+              }
+              images {
+                childImageSharp {
+                  fixed(width: 708, height: 555, cropFocus: ATTENTION) {
+                    tracedSVG
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
