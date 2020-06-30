@@ -13,6 +13,10 @@ export function getTitleFromHostname(defaultTitle) {
         return 'Michael Gajda'
       case 'www.michaelgajda.com':
         return 'Michael Gajda'
+      case 'endeavorreport.com':
+        return 'Endeavor Report'
+      case 'www.endeavorreport.com':
+        return 'Endeavor Report'
       case 'localhost':
         return 'Mike Gajda LOCAL'
       default:
