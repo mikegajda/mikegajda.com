@@ -99,7 +99,7 @@ export default function OpenGraphHelper() {
                 <a target="_blank" href={ogInfo.ogUrl}>
                   {ogInfo.processedImageHash ? (
                     <img className={"m-0 p-0 "}
-                         src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash}`}/>
+                         src={`https://s3.amazonaws.com/cdn.mikegajda.com/${ogInfo.processedImageHash}`}/>
                   ) : ""}
 
                 </a>
@@ -128,7 +128,7 @@ export default function OpenGraphHelper() {
             {ogInfo.ogDescription ? (<p>{ogInfo.ogDescription}</p>) : ""}
             <h4>IG Feed</h4>
             {ogInfo.processedImageHash ? (
-              <img width={"500px"}src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
+              <img width={"500px"}src={`https://s3.amazonaws.com/cdn.mikegajda.com/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
             ) : ""}
 
             <h4>IG Feed White Text</h4>
@@ -138,7 +138,7 @@ export default function OpenGraphHelper() {
 
             <h4>IG Story</h4>
             {ogInfo.processedImageHash ? (
-              <img width={"500px"} src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_story.jpg`} />
+              <img width={"500px"} src={`https://s3.amazonaws.com/cdn.mikegajda.com/${ogInfo.processedImageHash.split(".")[0]}_ig_story.jpg`} />
             ) : ""}
 
 
