@@ -133,7 +133,7 @@ export default function OpenGraphHelper() {
 
             <h4>IG Feed White Text</h4>
             {ogInfo.processedImageHash ? (
-              <img width={"500px"}src={`https://d13wavrzg1e7kd.cloudfront.net/${ogInfo.processedImageHash.split(".")[0]}_ig_feed_white_text.jpg`} />
+              <img width={"500px"}src={`https://s3.amazonaws.com/cdn.mikegajda.com/${ogInfo.processedImageHash.split(".")[0]}_ig_feed_white_text.jpg`} />
             ) : ""}
 
             <h4>IG Story</h4>
