@@ -54,20 +54,8 @@ export function getIndexPageTitleFromPathPrefixAndIndex(pathPrefix, index) {
   }
 }
 
-function createS3ObjectMap(allS3Object) {
-  let s3ObjectMap = {}
-  allS3Object.forEach((s3Object) => {
-    s3ObjectMap[s3Object.node.Key] = s3Object.node.localFile
-  })
-  return s3ObjectMap;
-}
-
 const BlogIndex = ({data, pathContext}) => {
   const posts = pathContext.group
-
-  let s3ObjectMap = createS3ObjectMap(pathContext.allS3Object)
-
-  let s3ImageMap = createS3ObjectMap(pathContext.allS3Images)
 
   const {group, index, first, last, pageCount, pathPrefix} = pathContext
 
@@ -85,14 +73,10 @@ const BlogIndex = ({data, pathContext}) => {
           switch (post.node.remark.frontmatter.layout) {
             case 'Post':
               return Post(post.node)
-            case 'LinkPost':
-              return LinkPost(post.node)
             case 'Image':
               return Image(post.node)
             case 'Gallery':
               return Gallery(post.node)
-            case 'OGLink':
-              return OGLink(post.node, false, s3ObjectMap, s3ImageMap)
             case 'Youtube':
               return Youtube(post.node)
             default:

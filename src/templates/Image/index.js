@@ -152,7 +152,6 @@ export const pageQuery = graphql`
               tags
               description
               captions
-              remoteImage
               image {
                 childImageSharp {
                   fluid(maxWidth: 738) {

@@ -36,7 +36,6 @@ export const LinkPost = node => {
     path,
     date,
     image,
-    excerpt,
     link,
   } = node.remark.frontmatter
   const url = `/posts/${node.name}`
@@ -63,16 +62,6 @@ export const LinkPost = node => {
             {prettyLink}
           </div>
         </a>
-        {excerpt && excerpt !== undefined && excerpt !== '' ? (
-          <blockquote className={'my-2 rounded py-2 card-header-blockquote'}>
-            <small className={'muted m-0 p-0 card-header-blockquote-excerpt'}>
-              Excerpt
-            </small>
-            <div dangerouslySetInnerHTML={{ __html: excerpt }} />
-          </blockquote>
-        ) : (
-          ''
-        )}
       </div>
       {html && html !== undefined && html !== '' ? (
         <div className="card-body">
@@ -153,7 +142,6 @@ export const pageQuery = graphql`
               tags
               description
               link
-              excerpt
             }
           }
         }

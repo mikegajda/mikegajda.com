@@ -19,7 +19,6 @@ export const Post = node => {
     image,
   } = node.remark.frontmatter
 
-  const excerpt = node.remark.excerpt
   const link = `/posts/${node.name}`
 
   const fluid = get(node, 'remark.frontmatter.image.childImageSharp.fluid')
@@ -28,7 +27,7 @@ export const Post = node => {
     <React.Fragment>
       <Meta
         title={title}
-        description={excerpt}
+        description={""}
         url={link}
         image={fluid ? fluid.src : undefined}
         ogType={'article'}
@@ -150,7 +149,6 @@ export const pageQuery = graphql`
           remark: childMarkdownRemark {
             id
             html
-            excerpt
             frontmatter {
               layout
               title
@@ -161,7 +159,6 @@ export const pageQuery = graphql`
               tags
               description
               captions
-              remoteImage
               image {
                 childImageSharp {
                   fluid(maxWidth: 738) {

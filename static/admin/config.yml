@@ -15,7 +15,6 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Layout", name: "layout", widget: "hidden", default: "LinkPost"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Excerpt", name: "excerpt", widget: "text"}
       - {label: "Link", name: "link", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown", required: false}
   - name: "blog" # Used in routes, e.g., /admin/collections/blog

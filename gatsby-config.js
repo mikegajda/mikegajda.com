@@ -80,12 +80,6 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: {
-        trackingId: '',
-      },
-    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     'gatsby-plugin-catch-links',
@@ -93,18 +87,6 @@ module.exports = {
     'gatsby-plugin-react-next',
     'gatsby-plugin-sass',
     'gatsby-plugin-sitemap',
-    'gatsby-plugin-twitter',
-    {
-      resolve: `@mikegajda/gatsby-source-s3`,
-      options: {
-        aws: {
-          accessKeyId: process.env.MG_AWS_KEY_ID,
-          secretAccessKey: process.env.MG_AWS_SECRET_ACCESS_KEY,
-          region: 'us-east-1',
-        },
-        buckets: ["cdn.mikegajda.com"],
-      },
-    },
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -137,14 +119,6 @@ module.exports = {
                   let content = ''
                   switch (node.remark.frontmatter.layout) {
                     case 'LinkPost':
-                      if (
-                        node.remark.frontmatter.excerpt &&
-                        node.remark.frontmatter.excerpt !== ''
-                      ) {
-                        content += `<blockquote><small>Excerpt</small><div>${
-                          node.remark.frontmatter.excerpt
-                        }</div></blockquote>`
-                      }
                       content += node.remark.html
                       return Object.assign({}, node.frontmatter, {
                         title: node.remark.frontmatter.title,
@@ -188,7 +162,6 @@ module.exports = {
                       publishDate: date
                       category
                       tags
-                      excerpt
                       description
                     }
                   }

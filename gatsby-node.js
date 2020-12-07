@@ -46,9 +46,6 @@ exports.createPages = ({graphql, actions}) => {
                       tags
                       description
                       captions
-                      remoteImage
-                      excerpt
-                      url
                       image {
                         childImageSharp {
                           fluid(maxWidth: 738) {
@@ -69,36 +66,6 @@ exports.createPages = ({graphql, actions}) => {
                             srcSet
                           }
                         }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            allS3Object(filter: { Key: { regex: "/^[^_]+\\\\.json$/" } }) {
-              edges {
-                node {
-                  Key
-                  localFile {
-                    absolutePath
-                  }
-                }
-              }
-            }
-            allS3Images: allS3Object(
-              filter: { Key: { regex: "/^[^_]+\\\\.jpg$/" } }
-            ) {
-              edges {
-                node {
-                  Key
-                  localFile {
-                    childImageSharp {
-                      fluid(maxWidth: 738) {
-                        tracedSVG
-                        aspectRatio
-                        src
-                        srcSet
-                        sizes
                       }
                     }
                   }
@@ -126,37 +93,25 @@ exports.createPages = ({graphql, actions}) => {
         return data
       })
       .then((data) => {
-        data.allS3Object.edges.forEach((edge) => {
-          edge['node']['localFile']['content'] = JSON.parse(
-            fs.readFileSync(edge.node.localFile.absolutePath, 'utf8')
-          )
-        })
         createPaginatedPages({
           edges: data.allFile.edges,
           createPage: createPage,
           pageTemplate: 'src/templates/index.js',
           pageLength: 5, // This is optional and defaults to 10 if not used
           pathPrefix: '', // This is optional and defaults to an empty string if not used
-          context: {
-            allS3Object: data.allS3Object.edges,
-            allS3Images: data.allS3Images.edges,
-          }, // This is optional and defaults to an empty object if not used
+          context: {}, // This is optional and defaults to an empty object if not used
         })
 
         createPaginatedPages({
           edges: data.allFile.edges.filter(
             (post) =>
-              post.node.remark.frontmatter.layout === 'OGLink' ||
               post.node.remark.frontmatter.layout === 'Post'
           ),
           createPage: createPage,
           pageTemplate: 'src/templates/index.js',
           pageLength: 5, // This is optional and defaults to 10 if not used
           pathPrefix: 'posts', // This is optional and defaults to an empty string if not used
-          context: {
-            allS3Object: data.allS3Object.edges,
-            allS3Images: data.allS3Images.edges,
-          }, // This is optional and defaults to an empty object if not used
+          context: {}, // This is optional and defaults to an empty object if not used
         })
 
         createPaginatedPages({
@@ -167,10 +122,7 @@ exports.createPages = ({graphql, actions}) => {
           pageTemplate: 'src/templates/index.js',
           pageLength: 5, // This is optional and defaults to 10 if not used
           pathPrefix: 'videos', // This is optional and defaults to an empty string if not used
-          context: {
-            allS3Object: data.allS3Object.edges,
-            allS3Images: data.allS3Images.edges,
-          }, // This is optional and defaults to an empty object if not used
+          context: {}, // This is optional and defaults to an empty object if not used
         })
 
         createPaginatedPages({
@@ -183,10 +135,7 @@ exports.createPages = ({graphql, actions}) => {
           pageTemplate: 'src/templates/index.js',
           pageLength: 5, // This is optional and defaults to 10 if not used
           pathPrefix: 'images', // This is optional and defaults to an empty string if not used
-          context: {
-            allS3Object: data.allS3Object.edges,
-            allS3Images: data.allS3Images.edges,
-          }, // This is optional and defaults to an empty object if not used
+          context: {}, // This is optional and defaults to an empty object if not used
         })
 
         data.allFile.edges.forEach((edge) => {
@@ -205,14 +154,6 @@ exports.createPages = ({graphql, actions}) => {
                   absolutePath,
                 },
               })
-            case 'LinkPost':
-              return createPage({
-                path: `/posts/${node.name}`,
-                component: LinkPost,
-                context: {
-                  absolutePath,
-                },
-              })
             case 'Image':
               return createPage({
                 path: `/images/${node.name}`,
@@ -227,16 +168,6 @@ exports.createPages = ({graphql, actions}) => {
                 component: Gallery,
                 context: {
                   absolutePath,
-                },
-              })
-            case 'OGLink':
-              return createPage({
-                path: `/posts/${node.name}`,
-                component: OGLink,
-                context: {
-                  absolutePath,
-                  allS3Object: data.allS3Object.edges,
-                  allS3Images: data.allS3Images.edges,
                 },
               })
             case 'Youtube':
