@@ -116,6 +116,8 @@ export const OGLink = (node, shouldShowPermalink, s3ObjectMap, s3ImagesMap) => {
 
 const OGLinkContainer = ({data, options}) => {
   let node = data.post.edges[0].node
+  console.log("data=", data)
+  console.log("options=", options)
   return (
     <Layout
       location={`${data.post.edges[0].node.sourceInstanceName}/${

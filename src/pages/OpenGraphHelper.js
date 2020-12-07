@@ -128,12 +128,12 @@ export default function OpenGraphHelper() {
             {ogInfo.ogDescription ? (<p>{ogInfo.ogDescription}</p>) : ""}
             <h4>IG Feed</h4>
             {ogInfo.processedImageHash ? (
-              <img width={"500px"}src={`https://s3.amazonaws.com/cdn.mikegajda.com/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
+              <img width={"500px"} src={`https://s3.amazonaws.com/cdn.mikegajda.com/${ogInfo.processedImageHash.split(".")[0]}_ig_feed.jpg`} />
             ) : ""}
 
             <h4>IG Feed White Text</h4>
             {ogInfo.processedImageHash ? (
-              <img width={"500px"}src={`https://s3.amazonaws.com/cdn.mikegajda.com/${ogInfo.processedImageHash.split(".")[0]}_ig_feed_white_text.jpg`} />
+              <img width={"500px"} src={`https://s3.amazonaws.com/cdn.mikegajda.com/${ogInfo.processedImageHash.split(".")[0]}_ig_feed_white_text.jpg`} />
             ) : ""}
 
             <h4>IG Story</h4>

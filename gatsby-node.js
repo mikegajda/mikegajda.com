@@ -2,6 +2,7 @@ const each = require('lodash/each')
 const Promise = require('bluebird')
 const path = require('path')
 const fs = require('fs')
+const stringHash = require("string-hash")
 const Post = path.resolve('./src/templates/Post/index.js')
 const LinkPost = path.resolve('./src/templates/LinkPost/index.js')
 const Image = path.resolve('./src/templates/Image/index.js')
@@ -234,6 +235,8 @@ exports.createPages = ({graphql, actions}) => {
                 component: OGLink,
                 context: {
                   absolutePath,
+                  allS3Object: data.allS3Object.edges,
+                  allS3Images: data.allS3Images.edges,
                 },
               })
             case 'Youtube':
