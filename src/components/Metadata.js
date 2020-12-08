@@ -36,7 +36,7 @@ export function getHostName() {
 }
 
 export const defaultTitlePrefix = 'Mike Gajda'
-export default class Meta extends React.Component {
+export default class Metadata extends React.Component {
   constructor(props) {
     super(props)
     this.state = { titlePrefix: defaultTitlePrefix }
@@ -89,7 +89,7 @@ export default class Meta extends React.Component {
   }
 }
 
-Meta.propTypes = {
+Metadata.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   image: PropTypes.string,
@@ -98,7 +98,7 @@ Meta.propTypes = {
   ogType: PropTypes.string,
 }
 
-Meta.defaultProps = {
+Metadata.defaultProps = {
   description: 'No description available at this time.',
   url: '/',
   image: '/img/android-chrome-512x512.png',

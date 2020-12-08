@@ -3,10 +3,10 @@ const Promise = require('bluebird')
 const path = require('path')
 const fs = require('fs')
 const stringHash = require('string-hash')
-const Post = path.resolve('./src/templates/components/postTypes/Post.js')
-const Image = path.resolve('./src/templates/components/postTypes/Image.js')
-const Gallery = path.resolve('./src/templates/components/postTypes/Gallery.js')
-const Youtube = path.resolve('./src/templates/components/postTypes/YouTube.js')
+const Post = path.resolve('./src/components/templates/Post.js')
+const Image = path.resolve('./src/components/templates/Image.js')
+const Gallery = path.resolve('./src/components/templates/Gallery.js')
+const Youtube = path.resolve('./src/components/templates/YouTube.js')
 const createPaginatedPages = require('gatsby-paginate')
 
 exports.createPages = ({ graphql, actions }) => {
@@ -94,7 +94,7 @@ exports.createPages = ({ graphql, actions }) => {
           createPaginatedPages({
             edges: data.allFile.edges,
             createPage: createPage,
-            pageTemplate: 'src/templates/HomePage.js',
+            pageTemplate: 'src/components/PaginatedPosts.js',
             pageLength: 5, // This is optional and defaults to 10 if not used
             pathPrefix: '', // This is optional and defaults to an empty string if not used
             context: {}, // This is optional and defaults to an empty object if not used
@@ -105,7 +105,7 @@ exports.createPages = ({ graphql, actions }) => {
               (post) => post.node.remark.frontmatter.layout === 'Post'
             ),
             createPage: createPage,
-            pageTemplate: 'src/templates/HomePage.js',
+            pageTemplate: 'src/components/PaginatedPosts.js',
             pageLength: 5, // This is optional and defaults to 10 if not used
             pathPrefix: 'posts', // This is optional and defaults to an empty string if not used
             context: {}, // This is optional and defaults to an empty object if not used
@@ -116,7 +116,7 @@ exports.createPages = ({ graphql, actions }) => {
               (post) => post.node.remark.frontmatter.layout === 'Youtube'
             ),
             createPage: createPage,
-            pageTemplate: 'src/templates/HomePage.js',
+            pageTemplate: 'src/components/PaginatedPosts.js',
             pageLength: 5, // This is optional and defaults to 10 if not used
             pathPrefix: 'videos', // This is optional and defaults to an empty string if not used
             context: {}, // This is optional and defaults to an empty object if not used
@@ -129,7 +129,7 @@ exports.createPages = ({ graphql, actions }) => {
                 post.node.remark.frontmatter.layout === 'Gallery'
             ),
             createPage: createPage,
-            pageTemplate: 'src/templates/HomePage.js',
+            pageTemplate: 'src/components/PaginatedPosts.js',
             pageLength: 5, // This is optional and defaults to 10 if not used
             pathPrefix: 'images', // This is optional and defaults to an empty string if not used
             context: {}, // This is optional and defaults to an empty object if not used

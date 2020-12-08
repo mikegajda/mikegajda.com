@@ -1,12 +1,12 @@
 import { graphql, Link } from 'gatsby'
 import React from 'react'
 
-import { Post } from 'templates/components/postTypes/Post'
-import { Image } from 'templates/components/postTypes/Image'
-import { Gallery } from 'templates/components/postTypes/Gallery'
-import { YouTube } from 'templates/components/postTypes/YouTube'
-import Layout from 'components/Layout'
-import Meta, { getHostName } from 'components/Meta'
+import { Post } from 'components/templates/Post'
+import { Image } from 'components/templates/Image'
+import { Gallery } from 'components/templates/Gallery'
+import { YouTube } from 'components/templates/YouTube'
+import Layout from 'components/Page'
+import Metadata, { getHostName } from 'components/Metadata'
 
 const NavLink = (props) => {
   if (props.next) {
@@ -52,7 +52,7 @@ export function getIndexPageTitleFromPathPrefixAndIndex(pathPrefix, index) {
   }
 }
 
-const HomePage = ({ data, pathContext }) => {
+const PaginatedPosts = ({ data, pathContext }) => {
   const posts = pathContext.group
 
   const { group, index, first, last, pageCount, pathPrefix } = pathContext
@@ -82,7 +82,7 @@ const HomePage = ({ data, pathContext }) => {
           }
         })}
 
-        <Meta
+        <Metadata
           title={`${getIndexPageTitleFromPathPrefixAndIndex(
             pathPrefix,
             index
@@ -108,4 +108,4 @@ const HomePage = ({ data, pathContext }) => {
   )
 }
 
-export default HomePage
+export default PaginatedPosts

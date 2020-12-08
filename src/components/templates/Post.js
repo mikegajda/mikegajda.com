@@ -2,9 +2,9 @@ import { Link } from 'gatsby'
 import get from 'lodash/get'
 import React from 'react'
 import Img from 'gatsby-image'
-import Layout from 'components/Layout'
+import Layout from 'components/Page'
 import './Post.scss'
-import Meta from 'components/Meta'
+import Metadata from 'components/Metadata'
 import { graphql } from 'gatsby'
 
 export const Post = (node) => {
@@ -25,7 +25,7 @@ export const Post = (node) => {
 
   return (
     <React.Fragment>
-      <Meta
+      <Metadata
         title={title}
         description={''}
         url={link}

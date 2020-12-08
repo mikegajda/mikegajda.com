@@ -1,13 +1,14 @@
-import { graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import get from 'lodash/get'
 import React from 'react'
-import Meta from 'components/Meta'
-import Layout from 'components/Layout'
-import './YouTube.scss'
+import map from 'lodash/map'
+import Img from 'gatsby-image'
+import Metadata from 'components/Metadata'
 
-import URL from 'url-parse'
+import Layout from 'components/Page'
+import './Image.scss'
 
-export const YouTube = (node) => {
+export const Image = (node) => {
   const html = node.remark.html
   const {
     category,
@@ -21,42 +22,29 @@ export const YouTube = (node) => {
   } = node.remark.frontmatter
   const url = `${node.sourceInstanceName}/${node.relativeDirectory}/${node.name}`
 
-  let prettyLink = link.replace(/(^\w+:|^)\/\//, '').replace(/^www\./, '')
+  const fluid = get(node, 'remark.frontmatter.image.childImageSharp.fluid')
 
-  let youtubeKey = new URL(link, true).query.v
-
-  if (youtubeKey) {
-    return (
-      <React.Fragment>
-        <Meta title={title} url={link} />
-        <article
-          className="container container-wide p-0 card my-4 shadow rounded"
-          key={node.absolutePath}
-        >
-          <div className="embed-responsive embed-responsive-16by9 card-img-top rounded">
-            <iframe
-              className="embed-responsive-item"
-              src={`https://www.youtube.com/embed/${youtubeKey}`}
-              allowFullScreen
-            />
-          </div>
-
-          {html ? (
-            <div className="card-body">
-              <div dangerouslySetInnerHTML={{ __html: html }} />
-            </div>
-          ) : (
-            ''
-          )}
-        </article>
-      </React.Fragment>
-    )
-  } else {
-    return ''
-  }
+  return (
+    <article
+      className="container container-wide p-0 card my-4 shadow"
+      key={node.absolutePath}
+    >
+      <Img
+        className="card-img-top"
+        fluid={fluid}
+        style={{ display: 'block', margin: '0 auto' }}
+      />
+      <div className="card-footer">
+        <span className="text-muted">{title}</span>
+        <time className="text-muted float-right" dateTime={date}>
+          {date}
+        </time>
+      </div>
+    </article>
+  )
 }
 
-const YoutubeContainer = ({ data, options }) => {
+const ImageContainer = ({ data, options }) => {
   const {
     category,
     tags,
@@ -65,28 +53,60 @@ const YoutubeContainer = ({ data, options }) => {
     path,
     date,
     image,
-    link,
   } = data.post.edges[0].node.remark.frontmatter
-  const isIndex = false
-  // const { isIndex, adsense } = options
-  const html = get(data.post.edges[0].node.remark, 'html')
-  // const fixed = get(image, 'childImageSharp.fixed')
 
   let node = data.post.edges[0].node
+
   return (
     <Layout
       location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
-      <Meta site={get(data, 'site.meta')} />
-      <div className="container px-0">{YouTube(node)}</div>
+      <Metadata site={get(data, 'site.meta')} />
+      <div className="container px-0">{Image(node)}</div>
     </Layout>
   )
 }
 
-export default YoutubeContainer
+export default ImageContainer
+
+const getDescription = (body) => {
+  body = body.replace(/<blockquote>/g, '<blockquote class="blockquote">')
+  if (body.match('<!--more-->')) {
+    body = body.split('<!--more-->')
+    if (typeof body[0] !== 'undefined') {
+      return body[0]
+    }
+  }
+  return body
+}
+
+const Button = ({ path, label, primary }) => (
+  <Link className="readmore" to={path}>
+    <span
+      className={`btn btn-outline-primary btn-block ${
+        primary ? 'btn-outline-primary' : 'btn-outline-secondary'
+      }`}
+    >
+      {label}
+    </span>
+  </Link>
+)
+
+const Badges = ({ items, primary }) =>
+  map(items, (item, i) => {
+    return (
+      <span
+        className={`p-2 badge ${primary ? 'badge-primary' : 'badge-white'}`}
+        key={i}
+      >
+        <i class="fa fa-tags" />
+        {item}
+      </span>
+    )
+  })
 
 export const pageQuery = graphql`
-  query YoutubeQueryByPath($absolutePath: String!) {
+  query ImagePostByPath($absolutePath: String!) {
     site {
       meta: siteMetadata {
         title

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Layout from "components/Layout";
+import Layout from "components/Page";
 import {OpenGraphInfo, OGPicture} from "components/OpenGraphInfo";
 import Img from "gatsby-image";
 

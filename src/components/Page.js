@@ -1,9 +1,8 @@
 import React from 'react'
-import emergence from 'emergence.js'
+import emergence from '../../node_modules/emergence.js/src/emergence'
 
-import Navi from 'components/Navi'
-import Footer from 'components/Footer'
-import { siteMetadata } from '../../../gatsby-config'
+import NavigationBar from 'components/NavigationBar'
+import { siteMetadata } from '../../gatsby-config'
 
 import 'modern-normalize/modern-normalize.css'
 import 'prismjs/themes/prism.css'
@@ -24,7 +23,7 @@ class Layout extends React.Component {
     const { children } = this.props
     return (
       <div className="pb-4">
-        <Navi title={siteMetadata.title} {...this.props} />
+        <NavigationBar title={siteMetadata.title} {...this.props} />
         {children}
       </div>
     )

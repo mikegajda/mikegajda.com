@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Meta, { defaultTitlePrefix, getTitleFromHostname } from 'components/Meta'
+import Metadata, {
+  defaultTitlePrefix,
+  getTitleFromHostname,
+} from 'components/Metadata'
 
-class Navi extends React.Component {
+class NavigationBar extends React.Component {
   constructor(props) {
     super(props)
     this.state = { title: this.props.title }
@@ -19,7 +22,7 @@ class Navi extends React.Component {
 
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary">
-        <Meta />
+        <Metadata />
         <div className="container px-0">
           <Link className="text-center" to="/">
             <h1 className="navbar-brand mb-0">{this.state.title}</h1>
@@ -49,7 +52,10 @@ class Navi extends React.Component {
               <li className="nav-item active">
                 <Link className="nav-link" to="/images">
                   Images
-                  <i className="fa fa-camera d-md-none ml-2" aria-hidden="true" />
+                  <i
+                    className="fa fa-camera d-md-none ml-2"
+                    aria-hidden="true"
+                  />
                 </Link>
               </li>
               <li className="nav-item active">
@@ -92,4 +98,4 @@ class Navi extends React.Component {
   }
 }
 
-export default Navi
+export default NavigationBar

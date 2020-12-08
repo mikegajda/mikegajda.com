@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './style.scss';
+import './OpenGraphInfo.scss';
 import Img from "gatsby-image";
 
 const svgToMiniDataURI = require('mini-svg-data-uri');
