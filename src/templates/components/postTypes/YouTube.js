@@ -1,17 +1,13 @@
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import React from 'react'
-import map from 'lodash/map'
-import Img from 'gatsby-image'
-import Meta from '../../components/Meta/index'
-
-import Footer from 'components/Footer'
+import Meta from 'components/Meta'
 import Layout from 'components/Layout'
-import './style.scss'
+import './YouTube.scss'
 
-import Swiper from 'react-id-swiper'
+import URL from 'url-parse'
 
-export const Gallery = node => {
+export const YouTube = (node) => {
   const html = node.remark.html
   const {
     category,
@@ -20,67 +16,47 @@ export const Gallery = node => {
     title,
     path,
     date,
-    images,
+    image,
     link,
-    captions,
   } = node.remark.frontmatter
-  const url = `${node.sourceInstanceName}/${node.relativeDirectory}/${
-    node.name
-  }`
+  const url = `${node.sourceInstanceName}/${node.relativeDirectory}/${node.name}`
 
-  const params = {
-    navigation: {
-      nextEl: '.swiper-button-next.swiper-button-black',
-      prevEl: '.swiper-button-prev.swiper-button-black',
-    },
-    // pagination: {
-    //   el: '.swiper-pagination.swiper-pagination-black',
-    //   type: 'bullets',
-    // },
-    spaceBetween: 10,
-    zoom: false,
-    centeredSlides: true,
-    keyboard: true,
-    onlyInViewport: true,
-  }
+  let prettyLink = link.replace(/(^\w+:|^)\/\//, '').replace(/^www\./, '')
 
-  return (
-    <article className="container container-wide p-0 card my-4 shadow">
-      <div className="card-header">
-        <Link
-          className="text-muted"
-          to={`${node.sourceInstanceName}/${node.relativeDirectory}/${
-            node.name
-          }`}
+  let youtubeKey = new URL(link, true).query.v
+
+  if (youtubeKey) {
+    return (
+      <React.Fragment>
+        <Meta title={title} url={link} />
+        <article
+          className="container container-wide p-0 card my-4 shadow rounded"
+          key={node.absolutePath}
         >
-          {title}
-        </Link>
-        <time className="text-muted float-right" dateTime={date}>
-          {date}
-        </time>
-      </div>
-      <div className="">
-        <Swiper {...params}>
-          {images.map((image, index) => (
-            <div className="">
-              <Img sizes={image.childImageSharp.fixed} />
-              <div className="p-3 pb-0 text-center text-muted">
-                {' '}
-                {captions[index] ? captions[index] : '...'}
-              </div>
+          <div className="embed-responsive embed-responsive-16by9 card-img-top rounded">
+            <iframe
+              className="embed-responsive-item"
+              src={`https://www.youtube.com/embed/${youtubeKey}`}
+              allowFullScreen
+            />
+          </div>
+
+          {html ? (
+            <div className="card-body">
+              <div dangerouslySetInnerHTML={{ __html: html }} />
             </div>
-          ))}
-        </Swiper>
-      </div>
-      <div
-        className="card-body pt-0"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-    </article>
-  )
+          ) : (
+            ''
+          )}
+        </article>
+      </React.Fragment>
+    )
+  } else {
+    return ''
+  }
 }
 
-const GalleryContainer = ({ data, options }) => {
+const YoutubeContainer = ({ data, options }) => {
   const {
     category,
     tags,
@@ -88,32 +64,29 @@ const GalleryContainer = ({ data, options }) => {
     title,
     path,
     date,
-    images,
+    image,
+    link,
   } = data.post.edges[0].node.remark.frontmatter
   const isIndex = false
   // const { isIndex, adsense } = options
   const html = get(data.post.edges[0].node.remark, 'html')
-  const isMore = isIndex && !!html.match('<!--more-->')
   // const fixed = get(image, 'childImageSharp.fixed')
 
   let node = data.post.edges[0].node
-
   return (
     <Layout
-      location={`${data.post.edges[0].node.sourceInstanceName}/${
-        data.post.edges[0].node.relativeDirectory
-      }/${data.post.edges[0].node.name}`}
+      location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
       <Meta site={get(data, 'site.meta')} />
-      <div className="container px-0">{Gallery(node)}</div>
+      <div className="container px-0">{YouTube(node)}</div>
     </Layout>
   )
 }
 
-export default GalleryContainer
+export default YoutubeContainer
 
 export const pageQuery = graphql`
-  query GalleryByPath($absolutePath: String!) {
+  query YoutubeQueryByPath($absolutePath: String!) {
     site {
       meta: siteMetadata {
         title

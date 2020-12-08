@@ -1,9 +1,9 @@
-import { Post } from 'templates/Post'
+import { Post } from 'templates/components/postTypes/Post'
 import { LinkPost } from 'templates/LinkPost'
-import { Image } from 'templates/Image'
-import { Gallery } from 'templates/Gallery'
+import { Image } from 'templates/components/postTypes/Image'
+import { Gallery } from 'templates/components/postTypes/Gallery'
 import { OGLink } from 'templates/OGLink'
-import { Youtube } from 'templates/Youtube'
+import { YouTube } from 'templates/components/postTypes/YouTube'
 
 export const RSSNode = ({ node }) => {
   let content
@@ -19,7 +19,7 @@ export const RSSNode = ({ node }) => {
     case 'OGLink':
       content = OGLink(node, false)
     case 'Youtube':
-      content = Youtube(node)
+      content = YouTube(node)
     default:
       content = Post(node)
   }

@@ -1,13 +1,17 @@
-import { graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import get from 'lodash/get'
 import React from 'react'
-import Meta from '../../components/Meta/index'
+import map from 'lodash/map'
+import Img from 'gatsby-image'
+import Meta from 'components/Meta'
+
+import Footer from 'components/Footer'
 import Layout from 'components/Layout'
-import './style.scss'
+import './Gallery.scss'
 
-import URL from 'url-parse'
+import Swiper from 'react-id-swiper'
 
-export const Youtube = node => {
+export const Gallery = (node) => {
   const html = node.remark.html
   const {
     category,
@@ -16,47 +20,63 @@ export const Youtube = node => {
     title,
     path,
     date,
-    image,
+    images,
     link,
+    captions,
   } = node.remark.frontmatter
   const url = `${node.sourceInstanceName}/${node.relativeDirectory}/${node.name}`
 
-  let prettyLink = link.replace(/(^\w+:|^)\/\//, '').replace(/^www\./, '')
-
-  let youtubeKey = new URL(link, true).query.v
-
-  if (youtubeKey) {
-    return (
-      <React.Fragment>
-        <Meta title={title} url={link} />
-        <article
-          className="container container-wide p-0 card my-4 shadow rounded"
-          key={node.absolutePath}
-        >
-          <div className="embed-responsive embed-responsive-16by9 card-img-top rounded">
-            <iframe
-              className="embed-responsive-item"
-              src={`https://www.youtube.com/embed/${youtubeKey}`}
-              allowFullScreen
-            />
-          </div>
-
-          {html ? (
-            <div className="card-body">
-              <div dangerouslySetInnerHTML={{ __html: html }} />
-            </div>
-          ) : (
-            ''
-          )}
-        </article>
-      </React.Fragment>
-    )
-  } else {
-    return ''
+  const params = {
+    navigation: {
+      nextEl: '.swiper-button-next.swiper-button-black',
+      prevEl: '.swiper-button-prev.swiper-button-black',
+    },
+    // pagination: {
+    //   el: '.swiper-pagination.swiper-pagination-black',
+    //   type: 'bullets',
+    // },
+    spaceBetween: 10,
+    zoom: false,
+    centeredSlides: true,
+    keyboard: true,
+    onlyInViewport: true,
   }
+
+  return (
+    <article className="container container-wide p-0 card my-4 shadow">
+      <div className="card-header">
+        <Link
+          className="text-muted"
+          to={`${node.sourceInstanceName}/${node.relativeDirectory}/${node.name}`}
+        >
+          {title}
+        </Link>
+        <time className="text-muted float-right" dateTime={date}>
+          {date}
+        </time>
+      </div>
+      <div className="">
+        <Swiper {...params}>
+          {images.map((image, index) => (
+            <div className="">
+              <Img sizes={image.childImageSharp.fixed} />
+              <div className="p-3 pb-0 text-center text-muted">
+                {' '}
+                {captions[index] ? captions[index] : '...'}
+              </div>
+            </div>
+          ))}
+        </Swiper>
+      </div>
+      <div
+        className="card-body pt-0"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </article>
+  )
 }
 
-const YoutubeContainer = ({ data, options }) => {
+const GalleryContainer = ({ data, options }) => {
   const {
     category,
     tags,
@@ -64,29 +84,30 @@ const YoutubeContainer = ({ data, options }) => {
     title,
     path,
     date,
-    image,
-    link,
+    images,
   } = data.post.edges[0].node.remark.frontmatter
   const isIndex = false
   // const { isIndex, adsense } = options
   const html = get(data.post.edges[0].node.remark, 'html')
+  const isMore = isIndex && !!html.match('<!--more-->')
   // const fixed = get(image, 'childImageSharp.fixed')
 
   let node = data.post.edges[0].node
+
   return (
     <Layout
       location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
       <Meta site={get(data, 'site.meta')} />
-      <div className="container px-0">{Youtube(node)}</div>
+      <div className="container px-0">{Gallery(node)}</div>
     </Layout>
   )
 }
 
-export default YoutubeContainer
+export default GalleryContainer
 
 export const pageQuery = graphql`
-  query YoutubeQueryByPath($absolutePath: String!) {
+  query GalleryByPath($absolutePath: String!) {
     site {
       meta: siteMetadata {
         title

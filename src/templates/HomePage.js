@@ -1,14 +1,14 @@
-import {graphql, Link} from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import React from 'react'
 
-import {Post} from 'templates/Post'
-import {Image} from 'templates/Image'
-import {Gallery} from 'templates/Gallery'
-import {Youtube} from 'templates/Youtube'
+import { Post } from 'templates/components/postTypes/Post'
+import { Image } from 'templates/components/postTypes/Image'
+import { Gallery } from 'templates/components/postTypes/Gallery'
+import { YouTube } from 'templates/components/postTypes/YouTube'
 import Layout from 'components/Layout'
-import Meta, {getHostName} from 'components/Meta'
+import Meta, { getHostName } from 'components/Meta'
 
-const NavLink = props => {
+const NavLink = (props) => {
   if (props.next) {
     return (
       <Link
@@ -18,7 +18,7 @@ const NavLink = props => {
         }
         to={props.url}
       >
-        {props.text} <i class="fa fa-arrow-right ml-1" aria-hidden="true"/>
+        {props.text} <i class="fa fa-arrow-right ml-1" aria-hidden="true" />
       </Link>
     )
   } else {
@@ -30,7 +30,7 @@ const NavLink = props => {
         }
         to={props.url}
       >
-        <i class="fa fa-arrow-left mr-1" aria-hidden="true"/> {props.text}
+        <i class="fa fa-arrow-left mr-1" aria-hidden="true" /> {props.text}
       </Link>
     )
   }
@@ -52,10 +52,10 @@ export function getIndexPageTitleFromPathPrefixAndIndex(pathPrefix, index) {
   }
 }
 
-const BlogIndex = ({data, pathContext}) => {
+const HomePage = ({ data, pathContext }) => {
   const posts = pathContext.group
 
-  const {group, index, first, last, pageCount, pathPrefix} = pathContext
+  const { group, index, first, last, pageCount, pathPrefix } = pathContext
 
   const pathPrefixRelative = pathPrefix === '' ? '/' : `/${pathPrefix}/`
   const previousUrl =
@@ -76,7 +76,7 @@ const BlogIndex = ({data, pathContext}) => {
             case 'Gallery':
               return Gallery(post.node)
             case 'Youtube':
-              return Youtube(post.node)
+              return YouTube(post.node)
             default:
               return Post(post.node)
           }
@@ -101,25 +101,11 @@ const BlogIndex = ({data, pathContext}) => {
             url={previousUrl}
             text="Previous Page"
           />
-          <NavLink next={true} test={last} url={nextUrl} text="Next Page"/>
+          <NavLink next={true} test={last} url={nextUrl} text="Next Page" />
         </div>
       </div>
     </Layout>
   )
 }
 
-export default BlogIndex
-export const pageQuery = graphql`
-  query IndexPosts {
-    site {
-      meta: siteMetadata {
-        title
-        description
-        url: siteUrl
-        author
-        twitter
-        adsense
-      }
-    }
-  }
-`
+export default HomePage

@@ -3,13 +3,13 @@ import get from 'lodash/get'
 import React from 'react'
 import map from 'lodash/map'
 import Img from 'gatsby-image'
-import Meta from '../../components/Meta/index'
+import Meta from 'components/Meta'
 
 import Footer from 'components/Footer'
 import Layout from 'components/Layout'
-import './style.scss'
+import './Image.scss'
 
-export const Image = node => {
+export const Image = (node) => {
   const html = node.remark.html
   const {
     category,
@@ -21,9 +21,7 @@ export const Image = node => {
     image,
     link,
   } = node.remark.frontmatter
-  const url = `${node.sourceInstanceName}/${node.relativeDirectory}/${
-    node.name
-  }`
+  const url = `${node.sourceInstanceName}/${node.relativeDirectory}/${node.name}`
 
   const fluid = get(node, 'remark.frontmatter.image.childImageSharp.fluid')
 
@@ -57,19 +55,12 @@ const ImageContainer = ({ data, options }) => {
     date,
     image,
   } = data.post.edges[0].node.remark.frontmatter
-  const isIndex = false
-  // const { isIndex, adsense } = options
-  const html = get(data.post.edges[0].node.remark, 'html')
-  const isMore = isIndex && !!html.match('<!--more-->')
-  // const fixed = get(image, 'childImageSharp.fixed')
 
   let node = data.post.edges[0].node
 
   return (
     <Layout
-      location={`${data.post.edges[0].node.sourceInstanceName}/${
-        data.post.edges[0].node.relativeDirectory
-      }/${data.post.edges[0].node.name}`}
+      location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
       <Meta site={get(data, 'site.meta')} />
       <div className="container px-0">{Image(node)}</div>
@@ -79,7 +70,7 @@ const ImageContainer = ({ data, options }) => {
 
 export default ImageContainer
 
-const getDescription = body => {
+const getDescription = (body) => {
   body = body.replace(/<blockquote>/g, '<blockquote class="blockquote">')
   if (body.match('<!--more-->')) {
     body = body.split('<!--more-->')
