@@ -1,31 +1,18 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
-import Metadata, {
-  defaultTitlePrefix,
-  getTitleFromHostname,
-} from 'components/Metadata'
 
 class NavigationBar extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { title: this.props.title }
-  }
-
-  componentDidMount() {
-    this.setState({
-      title: getTitleFromHostname(defaultTitlePrefix),
-    })
   }
 
   render() {
-    const { location, title } = this.props
-
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary">
-        <Metadata />
         <div className="container px-0">
           <Link className="text-center" to="/">
-            <h1 className="navbar-brand mb-0">{this.state.title}</h1>
+            <h1 className="navbar-brand mb-0">{this.props.title}</h1>
           </Link>
           <button
             className="navbar-toggler border-0"
@@ -96,6 +83,15 @@ class NavigationBar extends React.Component {
       </nav>
     )
   }
+}
+
+NavigationBar.propTypes = {
+  title: PropTypes.string.isRequired,
+  location: PropTypes.string,
+}
+
+NavigationBar.defaultProps = {
+  title: 'Mike Gajda',
 }
 
 export default NavigationBar

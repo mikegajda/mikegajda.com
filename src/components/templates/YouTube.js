@@ -2,7 +2,7 @@ import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import React from 'react'
 import Metadata from 'components/Metadata'
-import Layout from 'components/Page'
+import Page from 'components/Page'
 import './YouTube.scss'
 
 import URL from 'url-parse'
@@ -74,12 +74,12 @@ const YoutubeContainer = ({ data, options }) => {
 
   let node = data.post.edges[0].node
   return (
-    <Layout
+    <Page
       location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
       <Metadata site={get(data, 'site.meta')} />
       <div className="container px-0">{YouTube(node)}</div>
-    </Layout>
+    </Page>
   )
 }
 

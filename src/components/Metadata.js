@@ -57,43 +57,60 @@ export default class Metadata extends React.Component {
     }
 
     return (
-      <Helmet
-        title={title}
-        meta={[
-          { name: 'twitter:card', content: `${this.props.twitterSummaryType}` },
-          {
-            name: 'twitter:site',
-            content: `@mikendever`,
-          },
-          {
-            name: 'twitter:creator',
-            content: `@mikendever`,
-          },
-          { property: 'og:title', content: `${ogTitle}` },
-          { property: 'og:type', content: `${this.props.ogType}` },
-          {
-            property: 'og:description',
-            content: `${this.props.description}`,
-          },
-          {
-            property: 'og:url',
-            content: `https://${getHostName()}${this.props.url}`,
-          },
-          {
-            property: 'og:image',
-            content: `https://${getHostName()}${this.props.image}`,
-          },
-        ]}
-      />
+      <Helmet>
+        <meta charSet={"utf-8"} />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
+        <title>{this.props.title} | Mike Gajda</title>
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/img/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/img/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/img/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/img/site.webmanifest"/>
+        <link
+          rel="mask-icon"
+          href="/img/safari-pinned-tab.svg"
+          color="#01bc84"
+        />
+        <link rel="shortcut icon" href="/img/favicon.ico"/>
+        <meta name={"theme-color"} content={"#ffffff"} />
+        <meta name="msapplication-TileColor" content="#01bc84"/>
+        <meta name="msapplication-config" content="/img/browserconfig.xml"/>
+        <link rel={"stylesheet"} href={"https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/css/swiper.min.css"} />
+        <link integrity={"sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"}
+              crossOrigin={"anonymous"}
+              href={"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"} />
+        <link integrity={"sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"}
+              crossOrigin={"anonymous"}
+              href={"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"} />
+        <script integrity={"sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"}
+              crossOrigin={"anonymous"}
+              src={"https://code.jquery.com/jquery-3.2.1.slim.min.js"} />
+      </Helmet>
     )
   }
 }
 
 Metadata.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   description: PropTypes.string,
   image: PropTypes.string,
-  url: PropTypes.string,
+  url: PropTypes.string.isRequired,
   twitterSummaryType: PropTypes.string,
   ogType: PropTypes.string,
 }

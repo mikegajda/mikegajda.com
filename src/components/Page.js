@@ -1,16 +1,17 @@
 import React from 'react'
 import emergence from '../../node_modules/emergence.js/src/emergence'
+import PropTypes from 'prop-types'
 
 import NavigationBar from 'components/NavigationBar'
-import { siteMetadata } from '../../gatsby-config'
 
 import 'modern-normalize/modern-normalize.css'
 import 'prismjs/themes/prism.css'
 import 'scss/gatstrap.scss'
 import 'animate.css/animate.css'
 import 'font-awesome/css/font-awesome.css'
+import Metadata from 'components/Metadata'
 
-class Layout extends React.Component {
+class Page extends React.Component {
   componentDidMount() {
     emergence.init()
   }
@@ -20,14 +21,16 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { children } = this.props
     return (
       <div className="pb-4">
-        <NavigationBar title={siteMetadata.title} {...this.props} />
-        {children}
+        <Metadata title={this.props.title} />
+        <NavigationBar title={this.props.title} />
+        {this.props.children}
       </div>
     )
   }
 }
-
-export default Layout
+Page.propTypes = {
+  title: PropTypes.string.isRequired,
+}
+export default Page

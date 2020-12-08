@@ -5,7 +5,7 @@ import map from 'lodash/map'
 import Img from 'gatsby-image'
 import Metadata from 'components/Metadata'
 
-import Layout from 'components/Page'
+import Page from 'components/Page'
 import './Gallery.scss'
 
 import Swiper from 'react-id-swiper'
@@ -94,12 +94,12 @@ const GalleryContainer = ({ data, options }) => {
   let node = data.post.edges[0].node
 
   return (
-    <Layout
+    <Page
       location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
       <Metadata site={get(data, 'site.meta')} />
       <div className="container px-0">{Gallery(node)}</div>
-    </Layout>
+    </Page>
   )
 }
 
