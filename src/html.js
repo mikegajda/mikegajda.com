@@ -3,7 +3,7 @@ import 'scss/gatstrap.scss'
 import 'animate.css/animate.css'
 import 'prismjs/themes/prism-okaidia.css'
 import 'font-awesome/css/font-awesome.css'
-import { getTitleFromHostname } from 'components/NavigationBar'
+import { getTitleFromHostname } from 'components/Metadata'
 
 export default class HTML extends React.Component {
   constructor(props) {

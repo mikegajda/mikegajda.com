@@ -1,5 +1,5 @@
 import React from 'react'
-import emergence from '../../node_modules/emergence.js/src/emergence'
+import emergence from 'emergence.js'
 import PropTypes from 'prop-types'
 
 import NavigationBar from 'components/NavigationBar'

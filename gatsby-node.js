@@ -196,7 +196,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
     resolve: {
       alias: {
         components: path.resolve(__dirname, 'src/components'),
-        templates: path.resolve(__dirname, 'src/templates'),
+        // templates: path.resolve(__dirname, 'src/templates'),
         scss: path.resolve(__dirname, 'src/scss'),
         config: path.resolve(__dirname, 'gatsby-config.js'),
       },
