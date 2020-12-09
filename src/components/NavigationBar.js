@@ -1,9 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Metadata, {
-  defaultTitlePrefix,
-  getTitleFromHostname,
-} from 'components/Metadata'
+import { getTitleFromHostname } from 'components/Metadata'
 
 class NavigationBar extends React.Component {
   constructor(props) {
@@ -13,13 +10,11 @@ class NavigationBar extends React.Component {
 
   componentDidMount() {
     this.setState({
-      title: getTitleFromHostname(defaultTitlePrefix),
+      title: getTitleFromHostname('Mike Gajda'),
     })
   }
 
   render() {
-    const { location, title } = this.props
-
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary">
         <div className="container px-0">
