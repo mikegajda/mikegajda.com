@@ -3,7 +3,6 @@ import get from 'lodash/get'
 import React from 'react'
 import map from 'lodash/map'
 import Img from 'gatsby-image'
-import Metadata from 'components/Metadata'
 
 import Page from 'components/Page'
 import './Gallery.scss'
@@ -76,28 +75,13 @@ export const Gallery = (node) => {
 }
 
 const GalleryContainer = ({ data, options }) => {
-  const {
-    category,
-    tags,
-    description,
-    title,
-    path,
-    date,
-    images,
-  } = data.post.edges[0].node.remark.frontmatter
-  const isIndex = false
-  // const { isIndex, adsense } = options
-  const html = get(data.post.edges[0].node.remark, 'html')
-  const isMore = isIndex && !!html.match('<!--more-->')
-  // const fixed = get(image, 'childImageSharp.fixed')
-
   let node = data.post.edges[0].node
 
   return (
     <Page
-      location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
+      title={node.title}
+      url={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
-      <Metadata site={get(data, 'site.meta')} />
       <div className="container px-0">{Gallery(node)}</div>
     </Page>
   )
@@ -107,15 +91,6 @@ export default GalleryContainer
 
 export const pageQuery = graphql`
   query GalleryByPath($absolutePath: String!) {
-    site {
-      meta: siteMetadata {
-        title
-        description
-        url: siteUrl
-        author
-        twitter
-      }
-    }
     post: allFile(filter: { absolutePath: { eq: $absolutePath } }) {
       edges {
         node {

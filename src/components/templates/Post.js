@@ -4,7 +4,6 @@ import React from 'react'
 import Img from 'gatsby-image'
 import Page from 'components/Page'
 import './Post.scss'
-import Metadata from 'components/Metadata'
 import { graphql } from 'gatsby'
 
 export const Post = (node) => {
@@ -25,14 +24,6 @@ export const Post = (node) => {
 
   return (
     <React.Fragment>
-      <Metadata
-        title={title}
-        description={''}
-        url={link}
-        image={fluid ? fluid.src : undefined}
-        ogType={'article'}
-        twitterSummaryType={fluid ? 'summary_large_image' : 'summary'}
-      />
       <article
         className="container p-0 card my-4 shadow"
         key={node.absolutePath}
@@ -60,9 +51,13 @@ export const Post = (node) => {
 const PostContainer = ({ data, options }) => {
   let node = data.post.edges[0].node
 
+  console.log('node=', node)
   return (
     <Page
-      location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
+      title={node.remark.frontmatter.title}
+      url={`/posts/${node.name}`}
+      description={node.remark.excerpt}
+      image={get(node, 'remark.frontmatter.image.childImageSharp.fluid.src')}
     >
       <div className="container px-0">{Post(node)}</div>
     </Page>
@@ -88,6 +83,7 @@ export const pageQuery = graphql`
           remark: childMarkdownRemark {
             id
             html
+            excerpt: excerpt(pruneLength: 500)
             frontmatter {
               layout
               title

@@ -25,7 +25,12 @@ class Page extends React.Component {
     return (
       <div className="pb-4">
         <NavigationBar title={this.props.title} />
-        <Metadata title={this.props.title} url={this.props.url} />
+        <Metadata
+          title={this.props.title}
+          url={this.props.url}
+          description={this.props.description}
+          image={this.props.image}
+        />
         {children}
       </div>
     )
@@ -35,6 +40,8 @@ class Page extends React.Component {
 Page.propTypes = {
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  image: PropTypes.string,
 }
 
 Page.defaultPropTypes = {

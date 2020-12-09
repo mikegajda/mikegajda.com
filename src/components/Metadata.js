@@ -41,13 +41,14 @@ export default class Metadata extends React.Component {
   }
 
   render() {
-
-
+    console.log("props=",this.props)
     return (
       <Helmet>
         <title>{this.props.title}</title>
-        <meta property="og:url" content={this.props.url} />
+        <meta property="og:url" content={'https://mikegajda.com' + this.props.url} />
         <meta property="og:title" content={this.props.title} />
+        <meta property="og:description" content={this.props.description} />
+        <meta property="og:image" content={this.props.image} />
       </Helmet>
     )
   }

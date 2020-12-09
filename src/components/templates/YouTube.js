@@ -21,14 +21,11 @@ export const YouTube = (node) => {
   } = node.remark.frontmatter
   const url = `${node.sourceInstanceName}/${node.relativeDirectory}/${node.name}`
 
-  let prettyLink = link.replace(/(^\w+:|^)\/\//, '').replace(/^www\./, '')
-
   let youtubeKey = new URL(link, true).query.v
 
   if (youtubeKey) {
     return (
       <React.Fragment>
-        <Metadata title={title} url={link} />
         <article
           className="container container-wide p-0 card my-4 shadow rounded"
           key={node.absolutePath}

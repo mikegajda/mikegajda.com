@@ -86,7 +86,7 @@ const PaginatedPosts = ({ data, pathContext }) => {
           title={`${getIndexPageTitleFromPathPrefixAndIndex(
             pathPrefix,
             index
-          )}`}
+          )} | Mike Gajda`}
           description={
             pathPrefix
               ? `All ${pathPrefix} on ${getHostName()}`

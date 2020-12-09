@@ -3,7 +3,6 @@ import get from 'lodash/get'
 import React from 'react'
 import map from 'lodash/map'
 import Img from 'gatsby-image'
-import Metadata from 'components/Metadata'
 
 import Page from 'components/Page'
 import './Image.scss'
@@ -45,65 +44,19 @@ export const Image = (node) => {
 }
 
 const ImageContainer = ({ data, options }) => {
-  const {
-    category,
-    tags,
-    description,
-    title,
-    path,
-    date,
-    image,
-  } = data.post.edges[0].node.remark.frontmatter
-
   let node = data.post.edges[0].node
 
   return (
     <Page
-      location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
+      title={node.title}
+      url={`${node.sourceInstanceName}/${node.relativeDirectory}/${node.name}`}
     >
-      <Metadata site={get(data, 'site.meta')} />
       <div className="container px-0">{Image(node)}</div>
     </Page>
   )
 }
 
 export default ImageContainer
-
-const getDescription = (body) => {
-  body = body.replace(/<blockquote>/g, '<blockquote class="blockquote">')
-  if (body.match('<!--more-->')) {
-    body = body.split('<!--more-->')
-    if (typeof body[0] !== 'undefined') {
-      return body[0]
-    }
-  }
-  return body
-}
-
-const Button = ({ path, label, primary }) => (
-  <Link className="readmore" to={path}>
-    <span
-      className={`btn btn-outline-primary btn-block ${
-        primary ? 'btn-outline-primary' : 'btn-outline-secondary'
-      }`}
-    >
-      {label}
-    </span>
-  </Link>
-)
-
-const Badges = ({ items, primary }) =>
-  map(items, (item, i) => {
-    return (
-      <span
-        className={`p-2 badge ${primary ? 'badge-primary' : 'badge-white'}`}
-        key={i}
-      >
-        <i class="fa fa-tags" />
-        {item}
-      </span>
-    )
-  })
 
 export const pageQuery = graphql`
   query ImagePostByPath($absolutePath: String!) {
