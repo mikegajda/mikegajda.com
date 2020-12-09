@@ -35,62 +35,24 @@ export function getHostName() {
   }
 }
 
-export const defaultTitlePrefix = 'Mike Gajda'
 export default class Metadata extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { titlePrefix: defaultTitlePrefix }
-  }
-
-  componentDidMount() {
-    this.setState({
-      titlePrefix: getTitleFromHostname(defaultTitlePrefix),
-    })
   }
 
   render() {
-    let title = this.state.titlePrefix
-    let ogTitle = this.state.titlePrefix
-    if (this.props.title) {
-      title = `${this.state.titlePrefix} | ${this.props.title}`
-      ogTitle = this.props.title
-    }
+
 
     return (
       <Helmet
-        title={title}
-        meta={[
-          { name: 'twitter:card', content: `${this.props.twitterSummaryType}` },
-          {
-            name: 'twitter:site',
-            content: `@mikendever`,
-          },
-          {
-            name: 'twitter:creator',
-            content: `@mikendever`,
-          },
-          { property: 'og:title', content: `${ogTitle}` },
-          { property: 'og:type', content: `${this.props.ogType}` },
-          {
-            property: 'og:description',
-            content: `${this.props.description}`,
-          },
-          {
-            property: 'og:url',
-            content: `https://${getHostName()}${this.props.url}`,
-          },
-          {
-            property: 'og:image',
-            content: `https://${getHostName()}${this.props.image}`,
-          },
-        ]}
+        title={this.props.title}
       />
     )
   }
 }
 
 Metadata.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   description: PropTypes.string,
   image: PropTypes.string,
   url: PropTypes.string,

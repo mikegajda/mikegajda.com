@@ -22,7 +22,6 @@ class NavigationBar extends React.Component {
 
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary">
-        <Metadata />
         <div className="container px-0">
           <Link className="text-center" to="/">
             <h1 className="navbar-brand mb-0">{this.state.title}</h1>
