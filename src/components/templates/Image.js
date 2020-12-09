@@ -5,7 +5,7 @@ import map from 'lodash/map'
 import Img from 'gatsby-image'
 import Metadata from 'components/Metadata'
 
-import Layout from 'components/Page'
+import Page from 'components/Page'
 import './Image.scss'
 
 export const Image = (node) => {
@@ -58,12 +58,12 @@ const ImageContainer = ({ data, options }) => {
   let node = data.post.edges[0].node
 
   return (
-    <Layout
+    <Page
       location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
       <Metadata site={get(data, 'site.meta')} />
       <div className="container px-0">{Image(node)}</div>
-    </Layout>
+    </Page>
   )
 }
 
@@ -114,7 +114,6 @@ export const pageQuery = graphql`
         url: siteUrl
         author
         twitter
-        adsense
       }
     }
     post: allFile(filter: { absolutePath: { eq: $absolutePath } }) {

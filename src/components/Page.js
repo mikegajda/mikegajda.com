@@ -3,7 +3,6 @@ import emergence from '../../node_modules/emergence.js/src/emergence'
 import PropTypes from 'prop-types'
 
 import NavigationBar from 'components/NavigationBar'
-import { siteMetadata } from '../../gatsby-config'
 
 import 'modern-normalize/modern-normalize.css'
 import 'prismjs/themes/prism.css'
@@ -12,7 +11,7 @@ import 'animate.css/animate.css'
 import 'font-awesome/css/font-awesome.css'
 import Metadata from 'components/Metadata'
 
-class Layout extends React.Component {
+class Page extends React.Component {
   componentDidMount() {
     emergence.init()
   }
@@ -26,19 +25,21 @@ class Layout extends React.Component {
     return (
       <div className="pb-4">
         <NavigationBar title={this.props.title} />
-        <Metadata title={this.props.title} />
+        <Metadata title={this.props.title} url={this.props.url} />
         {children}
       </div>
     )
   }
 }
 
-Layout.propTypes = {
+Page.propTypes = {
   title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 }
 
-Layout.defaultPropTypes = {
+Page.defaultPropTypes = {
   title: 'Mike Gajda',
+  url: '/',
 }
 
-export default Layout
+export default Page

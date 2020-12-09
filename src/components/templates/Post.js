@@ -2,7 +2,7 @@ import { Link } from 'gatsby'
 import get from 'lodash/get'
 import React from 'react'
 import Img from 'gatsby-image'
-import Layout from 'components/Page'
+import Page from 'components/Page'
 import './Post.scss'
 import Metadata from 'components/Metadata'
 import { graphql } from 'gatsby'
@@ -61,11 +61,11 @@ const PostContainer = ({ data, options }) => {
   let node = data.post.edges[0].node
 
   return (
-    <Layout
+    <Page
       location={`${data.post.edges[0].node.sourceInstanceName}/${data.post.edges[0].node.relativeDirectory}/${data.post.edges[0].node.name}`}
     >
       <div className="container px-0">{Post(node)}</div>
-    </Layout>
+    </Page>
   )
 }
 

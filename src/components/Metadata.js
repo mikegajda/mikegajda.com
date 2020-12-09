@@ -44,9 +44,11 @@ export default class Metadata extends React.Component {
 
 
     return (
-      <Helmet
-        title={this.props.title}
-      />
+      <Helmet>
+        <title>{this.props.title}</title>
+        <meta property="og:url" content={this.props.url} />
+        <meta property="og:title" content={this.props.title} />
+      </Helmet>
     )
   }
 }
@@ -55,7 +57,7 @@ Metadata.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   image: PropTypes.string,
-  url: PropTypes.string,
+  url: PropTypes.string.isRequired,
   twitterSummaryType: PropTypes.string,
   ogType: PropTypes.string,
 }

@@ -5,7 +5,6 @@ module.exports = {
     siteUrl: 'https://mikegajda.com',
     author: 'Mike Gajda',
     twitter: 'mikegajda',
-    adsense: '',
   },
   pathPrefix: '/',
   plugins: [

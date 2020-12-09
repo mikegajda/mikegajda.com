@@ -5,7 +5,7 @@ import { Post } from 'components/templates/Post'
 import { Image } from 'components/templates/Image'
 import { Gallery } from 'components/templates/Gallery'
 import { YouTube } from 'components/templates/YouTube'
-import Layout from 'components/Page'
+import Page from 'components/Page'
 import Metadata, { getHostName } from 'components/Metadata'
 
 const NavLink = (props) => {
@@ -65,7 +65,7 @@ const PaginatedPosts = ({ data, pathContext }) => {
   const nextUrl = `${pathPrefixRelative}${index + 1}`
 
   return (
-    <Layout location={'/'}>
+    <Page location={'/'}>
       <div className="px-0">
         {posts.map(function (post) {
           switch (post.node.remark.frontmatter.layout) {
@@ -104,7 +104,7 @@ const PaginatedPosts = ({ data, pathContext }) => {
           <NavLink next={true} test={last} url={nextUrl} text="Next Page" />
         </div>
       </div>
-    </Layout>
+    </Page>
   )
 }
 

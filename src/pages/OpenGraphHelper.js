@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Layout from "components/Page";
+import Page from "components/Page";
 import {OpenGraphInfo, OGPicture} from "components/OpenGraphInfo";
 import Img from "gatsby-image";
 
@@ -47,7 +47,7 @@ export default function OpenGraphHelper() {
   )
 
   return (
-    <Layout
+    <Page
       location={`OGInfo`}
     >
       <div className={"container mt-2"}>
@@ -149,6 +149,6 @@ export default function OpenGraphHelper() {
       </div>
 
 
-    </Layout>
+    </Page>
   )
 }
