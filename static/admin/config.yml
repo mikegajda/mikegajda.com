@@ -18,7 +18,8 @@ collections:
       - {label: "Layout", name: "layout", widget: "hidden", default: "Post"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "image", widget: "image"}
-      - {label: "Description", name: "description", widget: "string"}
+      - {label: "Description", name: "description", widget: "string", required: false}
+      - {label: "Category", name: "category", widget: "string", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
   - name: "youtube" # Used in routes, e.g., /admin/collections/blog
     label: "Youtube" # Used in the UI
