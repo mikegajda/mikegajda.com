@@ -35,7 +35,7 @@
     "mini-svg-data-uri": "^1.2.3",
     "net": "^1.0.2",
     "prop-types": "^15.7.2",
-    "react-id-swiper": "^1.6.7",
+    "react-id-swiper": "^4.0.0",
     "string-hash": "^1.1.3",
     "tls": "0.0.1",
     "url-parse": "^1.4.3"
