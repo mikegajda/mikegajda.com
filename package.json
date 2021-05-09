@@ -55,7 +55,7 @@
     "eslint-plugin-react": "7.19.0",
     "font-awesome": "4.7.0",
     "gh-pages": "2.2.0",
-    "husky": "4.2.5",
+    "husky": "4.3.8",
     "lint-staged": "10.2.2",
     "lodash": "4.17.15",
     "modern-normalize": "0.6.0",
