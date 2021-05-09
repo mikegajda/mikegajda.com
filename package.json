@@ -65,7 +65,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-helmet": "5.2.1",
-    "textlint": "11.6.3",
+    "textlint": "11.9.1",
     "textlint-rule-preset-ja-spacing": "2.0.1",
     "textlint-rule-preset-japanese": "4.0.4"
   },
